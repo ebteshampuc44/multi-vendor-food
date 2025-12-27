@@ -50,19 +50,27 @@
     .biryani-badge {
       background: linear-gradient(135deg, #ef4444, #dc2626);
     }
-  .logo-container {
-  height: 100px; /* 120px থেকে 100px */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px; /* 20px থেকে 15px */
-  background: white;
-  border-radius: 12px;
-}
+    .logo-container {
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      background: white;
+      border-radius: 12px;
+    }
     .restaurant-logo {
       max-height: 80px;
       max-width: 150px;
       object-fit: contain;
+    }
+    .section-highlight {
+      animation: highlight 1.5s ease;
+    }
+    @keyframes highlight {
+      0% { box-shadow: 0 0 0 0 rgba(219, 39, 119, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(219, 39, 119, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(219, 39, 119, 0); }
     }
   </style>
 </head>
@@ -100,11 +108,11 @@
 
         <!-- Logo -->
         <div class="flex items-center cursor-pointer">
-         <img 
-  src="img/foodshop.png" 
-  alt="Shopick Logo"
-  class="w-14 h-auto object-contain"
->
+          <img 
+            src="img/foodshop.png" 
+            alt="Shopick Logo"
+            class="w-14 h-auto object-contain"
+          >
         </div>
 
         <!-- Location -->
@@ -218,22 +226,22 @@
       
       <!-- FILTERS -->
       <div class="flex flex-wrap gap-3 mt-4">
-        <button class="category-btn active px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategory('all')">
+        <button class="category-btn active px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategoryAndScroll('all')">
           সব
         </button>
-        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategory('home-kitchen')">
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategoryAndScroll('home-kitchen')">
           হোম কিচেন
         </button>
-        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategory('restaurant')">
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategoryAndScroll('restaurant')">
           রেস্টুরেন্ট
         </button>
-        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategory('fast-food')">
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategoryAndScroll('fast-food')">
           ফাস্ট ফুড
         </button>
-        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategory('dessert')">
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategoryAndScroll('dessert')">
           মিষ্টি
         </button>
-        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategory('biryani')">
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategoryAndScroll('biryani')">
           বিরিয়ানি
         </button>
       </div>
@@ -259,7 +267,7 @@
     </div>
 
     <!-- TODAY'S SPECIAL FROM HOME KITCHEN -->
-    <div class="mb-10">
+    <div id="todays-special" class="mb-10">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-800">আজকের স্পেশাল (হোম কিচেন)</h2>
         <a href="#" class="text-pink-600 font-semibold hover:underline">সব দেখুন</a>
@@ -466,7 +474,7 @@
     </div>
 
     <!-- TOP RESTAURANTS (LOGO ONLY) -->
-    <div class="mb-10">
+    <div id="top-restaurants" class="mb-10">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-800">টপ রেস্টুরেন্ট</h2>
         <a href="#" class="text-pink-600 font-semibold hover:underline">সব দেখুন</a>
@@ -553,7 +561,7 @@
     </div>
 
     <!-- ফাস্ট ফুড সেকশন -->
-    <div class="mb-10">
+    <div id="fast-food-section" class="mb-10">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-800">ফাস্ট ফুড</h2>
         <a href="#" class="text-pink-600 font-semibold hover:underline">সব দেখুন</a>
@@ -727,7 +735,7 @@
     </div>
 
     <!-- মিষ্টি সেকশন -->
-    <div class="mb-10">
+    <div id="dessert-section" class="mb-10">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-800">মিষ্টি</h2>
         <a href="#" class="text-pink-600 font-semibold hover:underline">সব দেখুন</a>
@@ -901,7 +909,7 @@
     </div>
 
     <!-- বিরিয়ানি সেকশন -->
-    <div class="mb-10">
+    <div id="biryani-section" class="mb-10">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-800">বিরিয়ানি</h2>
         <a href="#" class="text-pink-600 font-semibold hover:underline">সব দেখুন</a>
@@ -1147,11 +1155,11 @@
         
         <div class="lg:col-span-2">
           <div class="flex items-center mb-6">
-          <img 
-  src="img/foodshop.png" 
-  alt="Shopick Logo"
-  class="w-12 h-auto object-contain mr-4"
->
+            <img 
+              src="img/foodshop.png" 
+              alt="Shopick Logo"
+              class="w-12 h-auto object-contain mr-4"
+            >
           
           </div>
           <p class="text-gray-600 mb-6">বাংলাদেশের সবচেয়ে নির্ভরযোগ্য ফুড ডেলিভারি সার্ভিস। রেস্টুরেন্ট এবং হোম কিচেন থেকে সরাসরি আপনার দরজায় টাটকা খাবার পৌঁছে দেই।</p>
@@ -1315,18 +1323,24 @@
       
       const randomLocation = locations[Math.floor(Math.random() * locations.length)];
       document.getElementById("locationText").textContent = randomLocation;
-      alert(`অবস্থান পরিবর্তন করা হয়েছে: ${randomLocation}`);
+      
+      // Show notification instead of alert
+      showNotification(`অবস্থান পরিবর্তন করা হয়েছে: ${randomLocation}`);
     }
     
     function performSearch() {
       const searchTerm = document.getElementById("searchInput").value;
       if (searchTerm.trim()) {
-        alert(`"${searchTerm}" এর জন্য সার্চ করা হচ্ছে...`);
+        // Show notification instead of alert
+        showNotification(`"${searchTerm}" এর জন্য সার্চ করা হচ্ছে...`);
         // In a real app, this would trigger a search
+      } else {
+        showNotification("দয়া করে সার্চ টার্ম লিখুন");
       }
     }
     
-    function filterCategory(category) {
+    // Combined function for filter and smooth scroll
+    function filterCategoryAndScroll(category) {
       // Remove active class from all buttons
       document.querySelectorAll('.category-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -1335,21 +1349,52 @@
       // Add active class to clicked button
       event.target.classList.add('active');
       
-      // Show alert for demo
-      const categoryNames = {
-        'all': 'সব',
-        'home-kitchen': 'হোম কিচেন',
-        'restaurant': 'রেস্টুরেন্ট',
-        'fast-food': 'ফাস্ট ফুড',
-        'dessert': 'মিষ্টি',
-        'biryani': 'বিরিয়ানি'
+      // Scroll to appropriate section
+      const sectionMap = {
+        'all': 'todays-special',
+        'home-kitchen': 'todays-special',
+        'restaurant': 'top-restaurants',
+        'fast-food': 'fast-food-section',
+        'dessert': 'dessert-section',
+        'biryani': 'biryani-section'
       };
       
-      alert(`${categoryNames[category]} ক্যাটাগরিতে ফিল্টার করা হয়েছে`);
+      const sectionId = sectionMap[category];
+      if (sectionId) {
+        smoothScrollToSection(sectionId);
+      }
+    }
+    
+    // Smooth scroll function
+    function smoothScrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        // Calculate offset for navbar
+        const navbarHeight = document.querySelector('header').offsetHeight;
+        
+        // Get section position
+        const sectionPosition = section.getBoundingClientRect().top;
+        const offsetPosition = sectionPosition + window.pageYOffset - navbarHeight - 20;
+        
+        // Smooth scroll
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+        
+        // Highlight the section with animation
+        section.classList.add('section-highlight');
+        
+        // Remove highlight class after animation completes
+        setTimeout(() => {
+          section.classList.remove('section-highlight');
+        }, 1500);
+      }
     }
     
     function viewRestaurant(restaurantName) {
-      alert(`${restaurantName} এর মেনু দেখানো হবে।`);
+      // Show notification instead of alert
+      showNotification(`${restaurantName} এর মেনু দেখানো হবে।`);
       // In a real app, this would navigate to restaurant page
     }
     
@@ -1468,7 +1513,8 @@
       if (cart.length === 0) return;
       
       const total = document.getElementById('totalAmount').textContent;
-      alert(`অর্ডার কনফার্ম করা হচ্ছে। মোট মূল্য: ${total}`);
+      // Show notification instead of alert
+      showNotification(`অর্ডার কনফার্ম করা হচ্ছে। মোট মূল্য: ${total}`);
       closeCart();
       
       // Reset cart
