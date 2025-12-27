@@ -44,6 +44,20 @@
     .restaurant-badge {
       background: linear-gradient(135deg, #10b981, #059669);
     }
+    .logo-container {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+    }
+    .restaurant-logo {
+      max-height: 80px;
+      max-width: 150px;
+      object-fit: contain;
+    }
   </style>
 </head>
 
@@ -445,172 +459,87 @@
       </div>
     </div>
 
-    <!-- TOP RESTAURANTS -->
+    <!-- TOP RESTAURANTS (LOGO ONLY) -->
     <div class="mb-10">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-800">টপ রেস্টুরেন্ট</h2>
         <a href="#" class="text-pink-600 font-semibold hover:underline">সব দেখুন</a>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
         
-        <!-- Restaurant 1 -->
-        <div class="restaurant-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
-          <div class="relative">
-            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                 alt="Restaurant" class="w-full h-48 object-cover">
-            <div class="absolute top-3 left-3">
-              <span class="restaurant-badge text-white text-xs font-bold px-3 py-1 rounded-full">রেস্টুরেন্ট</span>
-            </div>
+        <!-- Kacchi Bhai -->
+        <div class="restaurant-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow cursor-pointer" onclick="viewRestaurant('Kacchi Bhai')">
+          <div class="logo-container">
+            <img 
+              src="img/kb.png" 
+              alt="Kacchi Bhai Logo" 
+              class="restaurant-logo"
+              onerror="this.src='https://via.placeholder.com/150x80/FF6B6B/FFFFFF?text=Kacchi+Bhai'"
+            >
           </div>
-          <div class="p-5">
-            <div class="flex justify-between items-start mb-2">
-              <h3 class="font-bold text-lg">সুলতানের দুনিয়া</h3>
-              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
-                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.5
-              </div>
-            </div>
-            <p class="text-gray-600 text-sm mb-3">বিরিয়ানি, কাবাব, টিকা</p>
-            
-            <div class="flex items-center text-sm text-gray-500 mb-4">
-              <i class="fas fa-clock mr-2"></i>
-              <span>৪০-৫০ মিনিট</span>
-              <span class="mx-2">•</span>
-              <i class="fas fa-truck mr-2"></i>
-              <span>৳ ৫০ ডেলিভারি</span>
-            </div>
-            
-            <div class="mb-4">
-              <div class="flex items-center text-sm">
-                <span class="text-green-600 font-semibold mr-2">খোলা আছে</span>
-                <span>•</span>
-                <span class="ml-2">ন্যূনতম অর্ডার: ৳ ২০০</span>
-              </div>
-            </div>
-            
-            <button onclick="viewRestaurant('সুলতানের দুনিয়া')" class="w-full bg-pink-600 text-white px-4 py-3 rounded-lg hover:bg-pink-700 text-sm font-semibold">
-              মেনু দেখুন
-            </button>
+          <div class="p-4 text-center">
+            <h3 class="font-bold text-gray-800">Kacchi Bhai</h3>
           </div>
         </div>
         
-        <!-- Restaurant 2 -->
-        <div class="restaurant-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
-          <div class="relative">
-            <img src="https://images.unsplash.com/photo-1559314809-2b99056a8c4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                 alt="Restaurant" class="w-full h-48 object-cover">
-            <div class="absolute top-3 left-3">
-              <span class="restaurant-badge text-white text-xs font-bold px-3 py-1 rounded-full">রেস্টুরেন্ট</span>
-            </div>
+        <!-- Sultan's Dine -->
+        <div class="restaurant-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow cursor-pointer" onclick="viewRestaurant('Sultan\'s Dine')">
+          <div class="logo-container">
+            <img 
+              src="img/sd.jpg" 
+              alt="Sultan's Dine Logo" 
+              class="restaurant-logo"
+              onerror="this.src='https://via.placeholder.com/150x80/4ECDC4/FFFFFF?text=Sultan+Dine'"
+            >
           </div>
-          <div class="p-5">
-            <div class="flex justify-between items-start mb-2">
-              <h3 class="font-bold text-lg">পিজ্জা হাট</h3>
-              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
-                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.3
-              </div>
-            </div>
-            <p class="text-gray-600 text-sm mb-3">পিজ্জা, বার্গার, পাস্তা</p>
-            
-            <div class="flex items-center text-sm text-gray-500 mb-4">
-              <i class="fas fa-clock mr-2"></i>
-              <span>৩০-৪০ মিনিট</span>
-              <span class="mx-2">•</span>
-              <i class="fas fa-truck mr-2"></i>
-              <span>৳ ৬০ ডেলিভারি</span>
-            </div>
-            
-            <div class="mb-4">
-              <div class="flex items-center text-sm">
-                <span class="text-green-600 font-semibold mr-2">খোলা আছে</span>
-                <span>•</span>
-                <span class="ml-2">ন্যূনতম অর্ডার: ৳ ৩০০</span>
-              </div>
-            </div>
-            
-            <button onclick="viewRestaurant('পিজ্জা হাট')" class="w-full bg-pink-600 text-white px-4 py-3 rounded-lg hover:bg-pink-700 text-sm font-semibold">
-              মেনু দেখুন
-            </button>
+          <div class="p-4 text-center">
+            <h3 class="font-bold text-gray-800">Sultan's Dine</h3>
           </div>
         </div>
         
-        <!-- Restaurant 3 -->
-        <div class="restaurant-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
-          <div class="relative">
-            <img src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                 alt="Restaurant" class="w-full h-48 object-cover">
-            <div class="absolute top-3 left-3">
-              <span class="restaurant-badge text-white text-xs font-bold px-3 py-1 rounded-full">রেস্টুরেন্ট</span>
-            </div>
+        <!-- Pizza Burg -->
+        <div class="restaurant-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow cursor-pointer" onclick="viewRestaurant('Pizza Burg')">
+          <div class="logo-container">
+            <img 
+              src="img/logo_1727.jpeg" 
+              alt="Pizza Burg Logo" 
+              class="restaurant-logo"
+              onerror="this.src='https://via.placeholder.com/150x80/45B7D1/FFFFFF?text=Pizza+Burg'"
+            >
           </div>
-          <div class="p-5">
-            <div class="flex justify-between items-start mb-2">
-              <h3 class="font-bold text-lg">চিলি'স ফাস্ট ফুড</h3>
-              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
-                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.4
-              </div>
-            </div>
-            <p class="text-gray-600 text-sm mb-3">ফ্রাইড চিকেন, ফ্রেঞ্চ ফ্রাই</p>
-            
-            <div class="flex items-center text-sm text-gray-500 mb-4">
-              <i class="fas fa-clock mr-2"></i>
-              <span>২০-৩০ মিনিট</span>
-              <span class="mx-2">•</span>
-              <i class="fas fa-truck mr-2"></i>
-              <span>৳ ৪০ ডেলিভারি</span>
-            </div>
-            
-            <div class="mb-4">
-              <div class="flex items-center text-sm">
-                <span class="text-green-600 font-semibold mr-2">খোলা আছে</span>
-                <span>•</span>
-                <span class="ml-2">ন্যূনতম অর্ডার: ৳ ১৫০</span>
-              </div>
-            </div>
-            
-            <button onclick="viewRestaurant('চিলি ফাস্ট ফুড')" class="w-full bg-pink-600 text-white px-4 py-3 rounded-lg hover:bg-pink-700 text-sm font-semibold">
-              মেনু দেখুন
-            </button>
+          <div class="p-4 text-center">
+            <h3 class="font-bold text-gray-800">Pizza Burg</h3>
           </div>
         </div>
         
-        <!-- Restaurant 4 -->
-        <div class="restaurant-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
-          <div class="relative">
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                 alt="Restaurant" class="w-full h-48 object-cover">
-            <div class="absolute top-3 left-3">
-              <span class="restaurant-badge text-white text-xs font-bold px-3 py-1 rounded-full">রেস্টুরেন্ট</span>
-            </div>
+        <!-- KFC -->
+        <div class="restaurant-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow cursor-pointer" onclick="viewRestaurant('KFC')">
+          <div class="logo-container">
+            <img 
+              src="img/kfc.png" 
+              alt="KFC Logo" 
+              class="restaurant-logo"
+              onerror="this.src='https://via.placeholder.com/150x80/FF6B6B/FFFFFF?text=KFC'"
+            >
           </div>
-          <div class="p-5">
-            <div class="flex justify-between items-start mb-2">
-              <h3 class="font-bold text-lg">বার্গার কিং</h3>
-              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
-                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.2
-              </div>
-            </div>
-            <p class="text-gray-600 text-sm mb-3">বার্গার, শেক, স্যান্ডউইচ</p>
-            
-            <div class="flex items-center text-sm text-gray-500 mb-4">
-              <i class="fas fa-clock mr-2"></i>
-              <span>২৫-৩৫ মিনিট</span>
-              <span class="mx-2">•</span>
-              <i class="fas fa-truck mr-2"></i>
-              <span>৳ ৫০ ডেলিভারি</span>
-            </div>
-            
-            <div class="mb-4">
-              <div class="flex items-center text-sm">
-                <span class="text-green-600 font-semibold mr-2">খোলা আছে</span>
-                <span>•</span>
-                <span class="ml-2">ন্যূনতম অর্ডার: ৳ ২৫০</span>
-              </div>
-            </div>
-            
-            <button onclick="viewRestaurant('বার্গার কিং')" class="w-full bg-pink-600 text-white px-4 py-3 rounded-lg hover:bg-pink-700 text-sm font-semibold">
-              মেনু দেখুন
-            </button>
+          <div class="p-4 text-center">
+            <h3 class="font-bold text-gray-800">KFC</h3>
+          </div>
+        </div>
+        
+        <!-- Chillox -->
+        <div class="restaurant-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow cursor-pointer" onclick="viewRestaurant('Chillox')">
+          <div class="logo-container">
+            <img 
+              src="img/chillox.png" 
+              alt="Chillox Logo" 
+              class="restaurant-logo"
+              onerror="this.src='https://via.placeholder.com/150x80/96CEB4/FFFFFF?text=Chillox'"
+            >
+          </div>
+          <div class="p-4 text-center">
+            <h3 class="font-bold text-gray-800">Chillox</h3>
           </div>
         </div>
 
@@ -647,7 +576,7 @@
           <p class="text-gray-600">Cash on Delivery বা অনলাইন পেমেন্টের মাধ্যমে পেমেন্ট সম্পন্ন করুন</p>
         </div>
         
-        <div class="flex flex-col items-center text-center">
+        <div class="flex flexocol items-center text-center">
           <div class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mb-4">
             <span class="text-3xl font-bold text-pink-600">৪</span>
           </div>
