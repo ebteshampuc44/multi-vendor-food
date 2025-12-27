@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopick</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="https://i.ibb.co.com/TMBDhPGq/Black-White-Minimal-Simple-Modern-Classic-Photography-Studio-Salt-Logo-2.png" type="image/x-icon">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-white">
+
+  <!-- TOP PINK BANNER -->
+  <div id="topBanner" class="bg-pink-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-center gap-4 relative">
+      
+      <button class="border border-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-white hover:text-pink-600 transition">
+        SIGN UP TO BE A RESTAURANT PARTNER
+      </button>
+
+      <button class="border border-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-white hover:text-pink-600 transition">
+        SIGN UP FOR A BUSINESS ACCOUNT
+      </button>
+
+      <!-- Close Button -->
+      <button onclick="closeBanner()" class="absolute right-4 text-xl font-bold cursor-pointer">
+        ✕
+      </button>
+
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="border-b sticky top-0 bg-white z-50">
+
+    <!-- MAIN HEADER -->
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+
+      <!-- LEFT -->
+      <div class="flex items-center gap-6">
+
+        <!-- Logo - Much Bigger -->
+        <div class="flex items-center cursor-pointer">
+          <img 
+            src="https://i.ibb.co.com/TMBDhPGq/Black-White-Minimal-Simple-Modern-Classic-Photography-Studio-Salt-Logo-2.png" 
+            alt="Shopick Logo"
+            class="w-24 h-auto object-contain"
+          >
+        </div>
+
+        <!-- Location -->
+        <div class="hidden md:flex items-center gap-2 text-sm text-gray-700">
+          <span>📍</span>
+          <span>নতুন ঠিকানা রোড ৭১, ঢাকা, বাংলাদেশ</span>
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="flex items-center gap-3 flex-wrap">
+
+        <button class="border px-4 py-2 rounded-md text-sm font-semibold hover:bg-gray-100 transition">
+          লগইন
+        </button>
+
+        <button class="bg-pink-600 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-pink-700 transition">
+          ফ্রি ডেলিভারির জন্য সাইন আপ করুন
+        </button>
+
+        <!-- Language -->
+        <div class="flex items-center gap-1 text-sm cursor-pointer hover:text-pink-600">
+          🌐 <span>BN</span>
+        </div>
+
+        <!-- Cart -->
+        <div class="bg-gray-100 p-2 rounded-full cursor-pointer hover:bg-gray-200">
+          🛒
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="max-w-7xl mx-auto px-4 py-3 flex gap-8 text-gray-700 text-sm overflow-x-auto">
+
+      <div class="flex items-center gap-2 cursor-pointer hover:text-pink-600 whitespace-nowrap">
+        🚚 <span>ডেলিভারি</span>
+      </div>
+
+      <div class="flex items-center gap-2 cursor-pointer hover:text-pink-600 whitespace-nowrap">
+        🏃 <span>পিক আপ</span>
+      </div>
+
+      <div class="flex items-center gap-2 cursor-pointer hover:text-pink-600 whitespace-nowrap">
+        🎫 <span>প্যান্ডাপাস</span>
+      </div>
+
+      <div class="flex items-center gap-2 cursor-pointer hover:text-pink-600 whitespace-nowrap">
+        🏬 <span>দোকান</span>
+      </div>
+
+    </nav>
+
+  </header>
+
+  <!-- JS -->
+  <script>
+    function closeBanner() {
+      document.getElementById("topBanner").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
