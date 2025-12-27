@@ -6,7 +6,7 @@
   <title>Shopick - Food & Home Kitchen Delivery</title>
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="https://i.ibb.co.com/TMBDhPGq/Black-White-Minimal-Simple-Modern-Classic-Photography-Studio-Salt-Logo-2.png" type="image/x-icon">
+  <link rel="shortcut icon" href="img/foodshop.png" type="image/x-icon">
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -43,6 +43,12 @@
     }
     .restaurant-badge {
       background: linear-gradient(135deg, #10b981, #059669);
+    }
+    .dessert-badge {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    }
+    .biryani-badge {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
     }
     .logo-container {
       height: 120px;
@@ -95,9 +101,9 @@
         <!-- Logo -->
         <div class="flex items-center cursor-pointer">
           <img 
-            src="https://i.ibb.co.com/TMBDhPGq/Black-White-Minimal-Simple-Modern-Classic-Photography-Studio-Salt-Logo-2.png" 
+            src="img/foodshop.png" 
             alt="Shopick Logo"
-            class="w-32 h-auto object-contain"
+            class="w-20 h-auto object-contain"
           >
         </div>
 
@@ -546,6 +552,529 @@
       </div>
     </div>
 
+    <!-- ফাস্ট ফুড সেকশন -->
+    <div class="mb-10">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">ফাস্ট ফুড</h2>
+        <a href="#" class="text-pink-600 font-semibold hover:underline">সব দেখুন</a>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- ফাস্ট ফুড ১ -->
+        <div class="food-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                 alt="বার্গার" class="w-full h-48 object-cover">
+            <div class="absolute top-3 left-3">
+              <span class="restaurant-badge text-white text-xs font-bold px-3 py-1 rounded-full">ফাস্ট ফুড</span>
+            </div>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+              <i class="fas fa-heart text-gray-400"></i>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-bold text-lg">চিকেন বার্গার</h3>
+              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.5
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">ক্রিস্পি চিকেন বার্গার বিশেষ সস সহ</p>
+            
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <i class="fas fa-clock mr-2"></i>
+              <span>১৫-২০ মিনিট</span>
+              <span class="mx-2">•</span>
+              <i class="fas fa-truck mr-2"></i>
+              <span>৳ ৪০ ডেলিভারি</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-bold text-lg">৳ ২২০</span>
+                <span class="text-gray-500 line-through ml-2">৳ ২৫০</span>
+              </div>
+              <button onclick="addToCart('চিকেন বার্গার', 220)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+                অর্ডার করুন
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- ফাস্ট ফুড ২ -->
+        <div class="food-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                 alt="ফ্রেঞ্চ ফ্রাই" class="w-full h-48 object-cover">
+            <div class="absolute top-3 left-3">
+              <span class="restaurant-badge text-white text-xs font-bold px-3 py-1 rounded-full">ফাস্ট ফুড</span>
+            </div>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+              <i class="fas fa-heart text-pink-600"></i>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-bold text-lg">ফ্রেঞ্চ ফ্রাই কম্বো</h3>
+              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.3
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">ফ্রেঞ্চ ফ্রাই + কোল্ড ড্রিঙ্ক</p>
+            
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <i class="fas fa-clock mr-2"></i>
+              <span>১০-১৫ মিনিট</span>
+              <span class="mx-2">•</span>
+              <i class="fas fa-truck mr-2"></i>
+              <span>৳ ৩০ ডেলিভারি</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-bold text-lg">৳ ১৮০</span>
+              </div>
+              <button onclick="addToCart('ফ্রেঞ্চ ফ্রাই কম্বো', 180)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+                অর্ডার করুন
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- ফাস্ট ফুড ৩ -->
+        <div class="food-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                 alt="পিজ্জা" class="w-full h-48 object-cover">
+            <div class="absolute top-3 left-3">
+              <span class="restaurant-badge text-white text-xs font-bold px-3 py-1 rounded-full">ফাস্ট ফুড</span>
+            </div>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+              <i class="fas fa-heart text-gray-400"></i>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-bold text-lg">চিজ পিজ্জা</h3>
+              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.7
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">এক্সট্রা চিজ পিজ্জা (মিডিয়াম)</p>
+            
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <i class="fas fa-clock mr-2"></i>
+              <span>২০-৩০ মিনিট</span>
+              <span class="mx-2">•</span>
+              <i class="fas fa-truck mr-2"></i>
+              <span>৳ ৫০ ডেলিভারি</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-bold text-lg">৳ ৩২০</span>
+                <span class="text-gray-500 line-through ml-2">৳ ৩৫০</span>
+              </div>
+              <button onclick="addToCart('চিজ পিজ্জা', 320)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+                অর্ডার করুন
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- ফাস্ট ফুড ৪ -->
+        <div class="food-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1608039755401-742074f0548d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                 alt="চিকেন ফ্রাই" class="w-full h-48 object-cover">
+            <div class="absolute top-3 left-3">
+              <span class="restaurant-badge text-white text-xs font-bold px-3 py-1 rounded-full">ফাস্ট ফুড</span>
+            </div>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+              <i class="fas fa-heart text-gray-400"></i>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-bold text-lg">ফ্রাইড চিকেন</h3>
+              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.6
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">ক্রিস্পি ফ্রাইড চিকেন (৪ পিস)</p>
+            
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <i class="fas fa-clock mr-2"></i>
+              <span>২৫-৩৫ মিনিট</span>
+              <span class="mx-2">•</span>
+              <i class="fas fa-truck mr-2"></i>
+              <span>৳ ৪৫ ডেলিভারি</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-bold text-lg">৳ ২৮০</span>
+              </div>
+              <button onclick="addToCart('ফ্রাইড চিকেন', 280)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+                অর্ডার করুন
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- মিষ্টি সেকশন -->
+    <div class="mb-10">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">মিষ্টি</h2>
+        <a href="#" class="text-pink-600 font-semibold hover:underline">সব দেখুন</a>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- মিষ্টি ১ -->
+        <div class="food-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                 alt="রসগোল্লা" class="w-full h-48 object-cover">
+            <div class="absolute top-3 left-3">
+              <span class="dessert-badge text-white text-xs font-bold px-3 py-1 rounded-full">মিষ্টি</span>
+            </div>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+              <i class="fas fa-heart text-pink-600"></i>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-bold text-lg">রসগোল্লা</h3>
+              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.8
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">স্পঞ্জি রসগোল্লা (৬ পিস)</p>
+            
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <i class="fas fa-clock mr-2"></i>
+              <span>২০-৩০ মিনিট</span>
+              <span class="mx-2">•</span>
+              <i class="fas fa-truck mr-2"></i>
+              <span>৳ ৩০ ডেলিভারি</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-bold text-lg">৳ ১৫০</span>
+                <span class="text-gray-500 line-through ml-2">৳ ১৭০</span>
+              </div>
+              <button onclick="addToCart('রসগোল্লা', 150)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+                অর্ডার করুন
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- মিষ্টি ২ -->
+        <div class="food-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                 alt="কালোজাম" class="w-full h-48 object-cover">
+            <div class="absolute top-3 left-3">
+              <span class="dessert-badge text-white text-xs font-bold px-3 py-1 rounded-full">মিষ্টি</span>
+            </div>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+              <i class="fas fa-heart text-gray-400"></i>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-bold text-lg">কালোজাম</h3>
+              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.6
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">জমজমাট কালোজাম (৪ পিস)</p>
+            
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <i class="fas fa-clock mr-2"></i>
+              <span>১৫-২৫ মিনিট</span>
+              <span class="mx-2">•</span>
+              <i class="fas fa-truck mr-2"></i>
+              <span>৳ ২৫ ডেলিভারি</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-bold text-lg">৳ ১৬০</span>
+              </div>
+              <button onclick="addToCart('কালোজাম', 160)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+                অর্ডার করুন
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- মিষ্টি ৩ -->
+        <div class="food-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1558326567-98ae2405596b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                 alt="সন্দেশ" class="w-full h-48 object-cover">
+            <div class="absolute top-3 left-3">
+              <span class="dessert-badge text-white text-xs font-bold px-3 py-1 rounded-full">মিষ্টি</span>
+            </div>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+              <i class="fas fa-heart text-pink-600"></i>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-bold text-lg">সন্দেশ</h3>
+              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.7
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">নরম সন্দেশ (৮ পিস)</p>
+            
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <i class="fas fa-clock mr-2"></i>
+              <span>২৫-৩৫ মিনিট</span>
+              <span class="mx-2">•</span>
+              <i class="fas fa-truck mr-2"></i>
+              <span>৳ ৩৫ ডেলিভারি</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-bold text-lg">৳ ২০০</span>
+                <span class="text-gray-500 line-through ml-2">৳ ২২০</span>
+              </div>
+              <button onclick="addToCart('সন্দেশ', 200)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+                অর্ডার করুন
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- মিষ্টি ৪ -->
+        <div class="food-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                 alt="মিষ্টি দই" class="w-full h-48 object-cover">
+            <div class="absolute top-3 left-3">
+              <span class="dessert-badge text-white text-xs font-bold px-3 py-1 rounded-full">মিষ্টি</span>
+            </div>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+              <i class="fas fa-heart text-gray-400"></i>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-bold text-lg">মিষ্টি দই</h3>
+              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.9
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">ক্রিমি মিষ্টি দই (২ পিস)</p>
+            
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <i class="fas fa-clock mr-2"></i>
+              <span>২০-৩০ মিনিট</span>
+              <span class="mx-2">•</span>
+              <i class="fas fa-truck mr-2"></i>
+              <span>৳ ২০ ডেলিভারি</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-bold text-lg">৳ ১৩০</span>
+              </div>
+              <button onclick="addToCart('মিষ্টি দই', 130)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+                অর্ডার করুন
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- বিরিয়ানি সেকশন -->
+    <div class="mb-10">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">বিরিয়ানি</h2>
+        <a href="#" class="text-pink-600 font-semibold hover:underline">সব দেখুন</a>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- বিরিয়ানি ১ -->
+        <div class="food-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                 alt="মটন বিরিয়ানি" class="w-full h-48 object-cover">
+            <div class="absolute top-3 left-3">
+              <span class="biryani-badge text-white text-xs font-bold px-3 py-1 rounded-full">বিরিয়ানি</span>
+            </div>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+              <i class="fas fa-heart text-pink-600"></i>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-bold text-lg">মটন বিরিয়ানি</h3>
+              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.8
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">হাড়িসহ মটন বিরিয়ানি</p>
+            
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <i class="fas fa-clock mr-2"></i>
+              <span>৩০-৪০ মিনিট</span>
+              <span class="mx-2">•</span>
+              <i class="fas fa-truck mr-2"></i>
+              <span>৳ ৫০ ডেলিভারি</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-bold text-lg">৳ ২৮০</span>
+                <span class="text-gray-500 line-through ml-2">৳ ৩২০</span>
+              </div>
+              <button onclick="addToCart('মটন বিরিয়ানি', 280)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+                অর্ডার করুন
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- বিরিয়ানি ২ -->
+        <div class="food-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1563379091339-03246963d9d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                 alt="চিকেন বিরিয়ানি" class="w-full h-48 object-cover">
+            <div class="absolute top-3 left-3">
+              <span class="biryani-badge text-white text-xs font-bold px-3 py-1 rounded-full">বিরিয়ানি</span>
+            </div>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+              <i class="fas fa-heart text-gray-400"></i>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-bold text-lg">চিকেন বিরিয়ানি</h3>
+              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.5
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">বোনা চিকেন বিরিয়ানি</p>
+            
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <i class="fas fa-clock mr-2"></i>
+              <span>২৫-৩৫ মিনিট</span>
+              <span class="mx-2">•</span>
+              <i class="fas fa-truck mr-2"></i>
+              <span>৳ ৪০ ডেলিভারি</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-bold text-lg">৳ ২২০</span>
+                <span class="text-gray-500 line-through ml-2">৳ ২৫০</span>
+              </div>
+              <button onclick="addToCart('চিকেন বিরিয়ানি', 220)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+                অর্ডার করুন
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- বিরিয়ানি ৩ -->
+        <div class="food-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                 alt="বেগুনি বিরিয়ানি" class="w-full h-48 object-cover">
+            <div class="absolute top-3 left-3">
+              <span class="biryani-badge text-white text-xs font-bold px-3 py-1 rounded-full">বিরিয়ানি</span>
+            </div>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+              <i class="fas fa-heart text-pink-600"></i>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-bold text-lg">বেগুনি বিরিয়ানি</h3>
+              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.4
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">বেগুন ও আলু দিয়ে বিরিয়ানি</p>
+            
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <i class="fas fa-clock mr-2"></i>
+              <span>২০-৩০ মিনিট</span>
+              <span class="mx-2">•</span>
+              <i class="fas fa-truck mr-2"></i>
+              <span>৳ ৩৫ ডেলিভারি</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-bold text-lg">৳ ১৮০</span>
+              </div>
+              <button onclick="addToCart('বেগুনি বিরিয়ানি', 180)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+                অর্ডার করুন
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- বিরিয়ানি ৪ -->
+        <div class="food-card bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                 alt="হায়দ্রাবাদি বিরিয়ানি" class="w-full h-48 object-cover">
+            <div class="absolute top-3 left-3">
+              <span class="biryani-badge text-white text-xs font-bold px-3 py-1 rounded-full">বিরিয়ানি</span>
+            </div>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+              <i class="fas fa-heart text-gray-400"></i>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="font-bold text-lg">হায়দ্রাবাদি বিরিয়ানি</h3>
+              <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                <i class="fas fa-star text-yellow-500 mr-1"></i> 4.9
+              </div>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">হায়দ্রাবাদি স্টাইল বিরিয়ানি</p>
+            
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <i class="fas fa-clock mr-2"></i>
+              <span>৩৫-৪৫ মিনিট</span>
+              <span class="mx-2">•</span>
+              <i class="fas fa-truck mr-2"></i>
+              <span>৳ ৬০ ডেলিভারি</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-bold text-lg">৳ ৩২০</span>
+                <span class="text-gray-500 line-through ml-2">৳ ৩৫০</span>
+              </div>
+              <button onclick="addToCart('হায়দ্রাবাদি বিরিয়ানি', 320)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+                অর্ডার করুন
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- HOW IT WORKS -->
     <div class="mb-16 bg-white rounded-2xl p-8 shadow-md">
       <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">কিভাবে অর্ডার করবেন</h2>
@@ -576,7 +1105,7 @@
           <p class="text-gray-600">Cash on Delivery বা অনলাইন পেমেন্টের মাধ্যমে পেমেন্ট সম্পন্ন করুন</p>
         </div>
         
-        <div class="flex flexocol items-center text-center">
+        <div class="flex flex-col items-center text-center">
           <div class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mb-4">
             <span class="text-3xl font-bold text-pink-600">৪</span>
           </div>
@@ -619,9 +1148,9 @@
         <div class="lg:col-span-2">
           <div class="flex items-center mb-6">
             <img 
-              src="https://i.ibb.co.com/TMBDhPGq/Black-White-Minimal-Simple-Modern-Classic-Photography-Studio-Salt-Logo-2.png" 
+              src="img/foodshop.png" 
               alt="Shopick Logo"
-              class="w-24 h-auto object-contain mr-4"
+              class="w-16 h-auto object-contain mr-4"
             >
           
           </div>
