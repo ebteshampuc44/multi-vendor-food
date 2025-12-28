@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>আপনার কার্ট - Shopick</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="img/foodshop.png" type="image/x-icon">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .notification {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 500;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+      animation-fill-mode: forwards;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translateX(100%); }
+    }
+    .notification.success { background-color: #10b981; }
+    .notification.info { background-color: #3b82f6; }
+    .notification.warning { background-color: #f59e0b; }
+    .notification.error { background-color: #ef4444; }
+    .cart-item-animation {
+      animation: slideInItem 0.3s ease;
+    }
+    @keyframes slideInItem {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50">
+  
+  <!-- TOP PINK BANNER -->
+  <div id="topBanner" class="bg-pink-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-center gap-4 relative">
+      
+      <button class="border border-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-white hover:text-pink-600 transition">
+        SIGN UP TO BE A RESTAURANT PARTNER
+      </button>
+
+      <button class="border border-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-white hover:text-pink-600 transition">
+        SIGN UP FOR A BUSINESS ACCOUNT
+      </button>
+
+      <!-- Close Button -->
+      <button onclick="closeBanner()" class="absolute right-4 text-xl font-bold cursor-pointer hover:bg-pink-700 hover:rounded-full w-8 h-8 flex items-center justify-center">
+        ✕
+      </button>
+
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="border-b sticky top-0 bg-white z-50 shadow-sm">
+
+    <!-- MAIN HEADER -->
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+
+      <!-- LEFT -->
+      <div class="flex items-center gap-6">
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center cursor-pointer">
+          <img 
+            src="img/foodshop.png" 
+            alt="Shopick Logo"
+            class="w-14 h-auto object-contain"
+          >
+          <span class="ml-2 text-xl font-bold text-pink-600 hidden md:block">Shopick</span>
+        </a>
+
+        <!-- Location -->
+        <div class="hidden md:flex items-center gap-2 text-sm text-gray-700 bg-gray-100 px-4 py-2 rounded-lg">
+          <span class="text-pink-600">📍</span>
+          <span id="locationText">নতুন ঠিকানা রোড ৭১, ঢাকা, বাংলাদেশ</span>
+          <button onclick="changeLocation()" class="text-pink-600 text-xs font-semibold ml-2 hover:underline">পরিবর্তন</button>
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="flex items-center gap-3 flex-wrap">
+
+        <button class="border border-gray-300 px-4 py-2 rounded-md text-sm font-semibold hover:bg-gray-100 transition">
+          লগইন
+        </button>
+
+        <button class="bg-pink-600 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-pink-700 transition">
+          ফ্রি ডেলিভারির জন্য সাইন আপ করুন
+        </button>
+
+        <!-- Language -->
+        <div class="flex items-center gap-1 text-sm cursor-pointer hover:text-pink-600">
+          🌐 <span>BN</span>
+        </div>
+
+        <!-- Cart -->
+        <a href="cart.html" id="cartIcon" class="bg-gray-100 p-2 rounded-full cursor-pointer hover:bg-gray-200 relative">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          </svg>
+          <span id="cartCount" class="absolute -top-1 -right-1 bg-pink-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="max-w-7xl mx-auto px-4 py-3 flex gap-8 text-gray-700 text-sm overflow-x-auto border-t">
+      
+      <!-- ডেলিভারি -->
+      <div class="flex items-center gap-2 cursor-pointer hover:text-pink-600 whitespace-nowrap">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 7h-1V6a3 3 0 00-3-3H5a3 3 0 00-3 3v10a3 3 0 003 3h14a3 3 0 003-3v-6a3 3 0 00-3-3zM5 5h10a1 1 0 011 1v1H5a1 1 0 010-2zm14 10a1 1 0 01-1 1H5a1 1 0 01-1-1v-6a1 1 0 011-1h14a1 1 0 011 1v6z"/>
+        </svg>
+        <span>ডেলিভারি</span>
+      </div>
+
+      <!-- পিক আপ -->
+      <div class="flex items-center gap-2 cursor-pointer hover:text-pink-600 whitespace-nowrap">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
+        </svg>
+        <span>পিক আপ</span>
+      </div>
+
+      <!-- প্যান্ডামার্ট -->
+      <div class="flex items-center gap-2 cursor-pointer hover:text-pink-600 whitespace-nowrap">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 6h-3V4c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/>
+        </svg>
+        <span>প্যান্ডামার্ট</span>
+      </div>
+
+      <!-- দোকান -->
+      <div class="flex items-center gap-2 cursor-pointer hover:text-pink-600 whitespace-nowrap">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 9V7c0-1.65-1.35-3-3-3H6C4.35 4 3 5.35 3 7v2c-1.65 0-3 1.35-3 3v5c0 1.65 1.35 3 3 3h18c1.65 0 3-1.35 3-3v-5c0-1.65-1.35-3-3-3zM5 7c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v2.78c-.61.55-1 1.34-1 2.22v2H6v-2c0-.88-.39-1.67-1-2.22V7zm17 10c0 .55-.45 1-1 1H3c-.55 0-1-.45-1-1v-5c0-.55.45-1 1-1s1 .45 1 1v4h16v-4c0-.55.45-1 1-1s1 .45 1 1v5z"/>
+        </svg>
+        <span>দোকান</span>
+      </div>
+
+      <!-- Home Kitchen -->
+      <div class="flex items-center gap-2 cursor-pointer hover:text-pink-600 whitespace-nowrap">
+        <i class="fas fa-home text-pink-600"></i>
+        <span class="font-semibold">হোম কিচেন</span>
+      </div>
+
+      <!-- অফার -->
+      <div class="flex items-center gap-2 cursor-pointer hover:text-pink-600 whitespace-nowrap border-b-2 border-red-600 text-red-600">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+        <span class="font-semibold">অফার</span>
+      </div>
+
+      <!-- কার্ট (সক্রিয়) -->
+      <div class="flex items-center gap-2 cursor-pointer whitespace-nowrap border-b-2 border-pink-600 text-pink-600">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+        <span class="font-semibold">কার্ট</span>
+      </div>
+
+    </nav>
+
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    
+    <!-- PAGE HEADER -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-800">আপনার কার্ট</h1>
+          <p class="text-gray-600 mt-2">আপনার নির্বাচিত খাবারগুলো নিচে দেখানো হয়েছে</p>
+        </div>
+        <a href="index.html" class="text-pink-600 hover:text-pink-700 font-semibold flex items-center gap-2">
+          <i class="fas fa-arrow-left"></i>
+          খাবার ব্রাউজ করুন
+        </a>
+      </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-8">
+      
+      <!-- LEFT COLUMN: Cart Items -->
+      <div class="lg:w-2/3">
+        <!-- Cart Items Container -->
+        <div id="cartItemsContainer" class="bg-white rounded-2xl shadow-md p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">কার্ট আইটেম (<span id="itemCount">0</span>)</h2>
+            <button onclick="clearCart()" class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center gap-1">
+              <i class="fas fa-trash"></i>
+              সব মুছুন
+            </button>
+          </div>
+          
+          <!-- Empty Cart Message -->
+          <div id="emptyCartMessage" class="text-center py-12">
+            <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-shopping-cart text-4xl text-gray-400"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-700 mb-2">আপনার কার্ট খালি</h3>
+            <p class="text-gray-600 mb-6">কিছু আইটেম যোগ করুন অর্ডার শুরু করতে</p>
+            <a href="index.html" class="bg-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-pink-700 inline-block">
+              <i class="fas fa-utensils mr-2"></i>
+              খাবার ব্রাউজ করুন
+            </a>
+          </div>
+          
+          <!-- Cart Items List -->
+          <div id="cartItemsList" class="space-y-6">
+            <!-- Cart items will be loaded here dynamically -->
+          </div>
+        </div>
+
+        <!-- Delivery Information -->
+        <div class="bg-white rounded-2xl shadow-md p-6 mt-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">ডেলিভারি তথ্য</h2>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
+                  <i class="fas fa-map-marker-alt text-pink-600"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">ডেলিভারি ঠিকানা</h4>
+                  <p class="text-gray-600 text-sm" id="deliveryAddress">নতুন ঠিকানা রোড ৭১, ঢাকা, বাংলাদেশ</p>
+                </div>
+              </div>
+              <button onclick="changeLocation()" class="text-pink-600 hover:text-pink-700 text-sm font-medium">
+                পরিবর্তন
+              </button>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                  <i class="fas fa-clock text-green-600"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">ডেলিভারি সময়</h4>
+                  <p class="text-gray-600 text-sm" id="deliveryTime">৩০-৪০ মিনিট</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- RIGHT COLUMN: Order Summary -->
+      <div class="lg:w-1/3">
+        <div class="bg-white rounded-2xl shadow-md p-6 sticky top-24">
+          <h2 class="text-xl font-bold text-gray-800 mb-6">অর্ডার সারাংশ</h2>
+          
+          <div class="space-y-4 mb-6">
+            <div class="flex justify-between">
+              <span class="text-gray-600">সাবটোটাল</span>
+              <span id="subtotal" class="font-semibold">৳ ০</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">ডেলিভারি চার্জ</span>
+              <span id="deliveryCharge" class="font-semibold">৳ ০</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">সার্ভিস চার্জ</span>
+              <span id="serviceCharge" class="font-semibold">৳ ০</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">ভ্যাট</span>
+              <span id="vat" class="font-semibold">৳ ০</span>
+            </div>
+            <div class="border-t pt-4">
+              <div class="flex justify-between text-lg font-bold">
+                <span>মোট</span>
+                <span id="totalAmount">৳ ০</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Promo Code -->
+          <div class="mb-6">
+            <div class="flex gap-2 mb-3">
+              <input 
+                type="text" 
+                id="promoCode" 
+                placeholder="প্রোমো কোড"
+                class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              >
+              <button onclick="applyPromoCode()" class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 font-semibold">
+                প্রয়োগ
+              </button>
+            </div>
+            <div id="promoMessage" class="text-sm hidden"></div>
+            <div class="text-sm text-gray-600">
+              <span class="font-medium text-pink-600 cursor-pointer hover:underline" onclick="showPromoCodes()">প্রোমো কোডগুলো দেখুন</span>
+            </div>
+          </div>
+          
+          <!-- Checkout Button -->
+          <button 
+            id="checkoutBtn" 
+            onclick="proceedToCheckout()" 
+            class="w-full bg-pink-600 text-white py-4 rounded-lg font-bold text-lg hover:bg-pink-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled
+          >
+            <i class="fas fa-lock mr-2"></i>
+            নিরাপদ চেকআউট
+          </button>
+          
+          <div class="mt-6 text-center text-sm text-gray-600">
+            <p>অর্ডার করলে আপনি আমাদের <a href="#" class="text-pink-600 hover:underline">শর্তাবলী</a> মেনে নিচ্ছেন</p>
+          </div>
+          
+          <!-- Payment Methods -->
+          <div class="mt-8 pt-6 border-t">
+            <h3 class="font-semibold text-gray-700 mb-4">পেমেন্ট অপশন</h3>
+            <div class="grid grid-cols-2 gap-3">
+              <button class="border border-gray-300 py-3 rounded-lg hover:bg-gray-50 transition-colors text-sm">
+                <i class="fas fa-money-bill-wave mr-2"></i> Cash
+              </button>
+              <button class="border border-gray-300 py-3 rounded-lg hover:bg-gray-50 transition-colors text-sm">
+                <i class="fas fa-mobile-alt mr-2"></i> bKash
+              </button>
+              <button class="border border-gray-300 py-3 rounded-lg hover:bg-gray-50 transition-colors text-sm">
+                <i class="fas fa-wallet mr-2"></i> Nagad
+              </button>
+              <button class="border border-gray-300 py-3 rounded-lg hover:bg-gray-50 transition-colors text-sm">
+                <i class="fas fa-credit-card mr-2"></i> Card
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Need Help Section -->
+        <div class="bg-white rounded-2xl shadow-md p-6 mt-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+              <i class="fas fa-question-circle text-blue-600"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800">সাহায্য প্রয়োজন?</h3>
+              <p class="text-gray-600 text-sm">আমাদের সাথে যোগাযোগ করুন</p>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <a href="tel:+8801234567890" class="flex items-center gap-2 text-gray-700 hover:text-pink-600">
+              <i class="fas fa-phone"></i>
+              <span>+৮৮০ ১২৩৪ ৫৬৭৮৯০</span>
+            </a>
+            <a href="mailto:help@shopick.com" class="flex items-center gap-2 text-gray-700 hover:text-pink-600">
+              <i class="fas fa-envelope"></i>
+              <span>help@shopick.com</span>
+            </a>
+            <a href="#" class="flex items-center gap-2 text-gray-700 hover:text-pink-600">
+              <i class="fas fa-comments"></i>
+              <span>লাইভ চ্যাট</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommended Items -->
+    <div class="mt-12">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6">আপনার জন্য আরও সুপারিশ</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Recommended items would go here in a real app -->
+        <div class="bg-white rounded-2xl shadow-sm p-5 border border-gray-200 text-center">
+          <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-utensils text-pink-600 text-2xl"></i>
+          </div>
+          <h4 class="font-semibold mb-2">আরও আইটেম যোগ করুন</h4>
+          <p class="text-gray-600 text-sm mb-4">আরও খাবার যোগ করে আপনার অর্ডার সম্পূর্ণ করুন</p>
+          <a href="index.html" class="text-pink-600 hover:text-pink-700 font-medium text-sm">
+            ব্রাউজ করুন <i class="fas fa-arrow-right ml-1"></i>
+          </a>
+        </div>
+        
+        <div class="bg-white rounded-2xl shadow-sm p-5 border border-gray-200 text-center">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-percentage text-green-600 text-2xl"></i>
+          </div>
+          <h4 class="font-semibold mb-2">বিশেষ অফার</h4>
+          <p class="text-gray-600 text-sm mb-4">PROMO50 কোড ব্যবহার করে ৫০% ছাড় পান</p>
+          <button onclick="applyPromoCode('PROMO50')" class="text-green-600 hover:text-green-700 font-medium text-sm">
+            কোড প্রয়োগ করুন <i class="fas fa-tag ml-1"></i>
+          </button>
+        </div>
+        
+        <div class="bg-white rounded-2xl shadow-sm p-5 border border-gray-200 text-center">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-shipping-fast text-blue-600 text-2xl"></i>
+          </div>
+          <h4 class="font-semibold mb-2">ফ্রি ডেলিভারি</h4>
+          <p class="text-gray-600 text-sm mb-4">৫০০ টাকার বেশি অর্ডারে ফ্রি ডেলিভারি</p>
+          <span class="text-blue-600 font-medium text-sm">
+            শর্ত প্রযোজ্য
+          </span>
+        </div>
+        
+        <div class="bg-white rounded-2xl shadow-sm p-5 border border-gray-200 text-center">
+          <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-crown text-yellow-600 text-2xl"></i>
+          </div>
+          <h4 class="font-semibold mb-2">Shopick প্রিমিয়াম</h4>
+          <p class="text-gray-600 text-sm mb-4">বিশেষ সুবিধা পেতে আজই সাবস্ক্রাইব করুন</p>
+          <a href="#" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">
+            দেখুন <i class="fas fa-crown ml-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white text-gray-800 pt-12 pb-8 border-t mt-12">
+    <div class="max-w-7xl mx-auto px-4">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        
+        <div class="lg:col-span-2">
+          <div class="flex items-center mb-6">
+            <img 
+              src="img/foodshop.png" 
+              alt="Shopick Logo"
+              class="w-12 h-auto object-contain mr-4"
+            >
+            <span class="text-2xl font-bold text-pink-600">Shopick</span>
+          </div>
+          <p class="text-gray-600 mb-6">বাংলাদেশের সবচেয়ে নির্ভরযোগ্য ফুড ডেলিভারি সার্ভিস। রেস্টুরেন্ট এবং হোম কিচেন থেকে সরাসরি আপনার দরজায় টাটকা খাবার পৌঁছে দেই।</p>
+          <div class="flex gap-4">
+            <a href="#" class="bg-gray-100 text-gray-700 p-3 rounded-full hover:bg-pink-100 hover:text-pink-600 transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="bg-gray-100 text-gray-700 p-3 rounded-full hover:bg-pink-100 hover:text-pink-600 transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="bg-gray-100 text-gray-700 p-3 rounded-full hover:bg-pink-100 hover:text-pink-600 transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="bg-gray-100 text-gray-700 p-3 rounded-full hover:bg-pink-100 hover:text-pink-600 transition-colors">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold text-gray-900 mb-6">গ্রাহকদের জন্য</h3>
+          <ul class="space-y-3 text-gray-600">
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">সাহায্য কেন্দ্র</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">আমাদের সাথে যোগাযোগ</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">অফারগুলো</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">প্রাইভেসি পলিসি</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">শর্তাবলী</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold text-gray-900 mb-6">ভেন্ডরদের জন্য</h3>
+          <ul class="space-y-3 text-gray-600">
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">রেস্টুরেন্ট যুক্ত করুন</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">হোম কিচেন রেজিস্ট্রেশন</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">ভেন্ডর ড্যাশবোর্ড</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">কমিশন বিস্তারিত</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">সুরক্ষা নির্দেশিকা</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold text-gray-900 mb-6">ডাউনলোড করুন</h3>
+          <div class="space-y-4">
+            <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-lg flex items-center justify-center transition-colors">
+              <i class="fab fa-google-play mr-3 text-green-600"></i>
+              <div class="text-left">
+                <div class="text-xs text-gray-500">Get it on</div>
+                <div class="font-bold">Google Play</div>
+              </div>
+            </button>
+            <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-lg flex items-center justify-center transition-colors">
+              <i class="fab fa-apple mr-3 text-gray-700"></i>
+              <div class="text-left">
+                <div class="text-xs text-gray-500">Download on the</div>
+                <div class="font-bold">App Store</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="border-t border-gray-200 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="text-gray-500 text-sm mb-4 md:mb-0">
+            © 2023 Shopick. All rights reserved.
+          </div>
+          <div class="flex flex-wrap gap-6 text-sm text-gray-500">
+            <a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">প্রাইভেসি পলিসি</a>
+            <a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">শর্তাবলী</a>
+            <a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">কুকি পলিসি</a>
+            <a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">অভিযোগ নিষ্পত্তি</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    // Cart data
+    let cart = [];
+    let appliedPromoCode = null;
+    
+    function closeBanner() {
+      document.getElementById("topBanner").style.display = "none";
+      showNotification("ব্যানার বন্ধ করা হয়েছে", "info");
+    }
+    
+    function changeLocation() {
+      const locations = [
+        "নতুন ঠিকানা রোড ৭১, ঢাকা, বাংলাদেশ",
+        "ধানমন্ডি ১৫, ঢাকা",
+        "গুলশান ২, ঢাকা",
+        "বনানী, ঢাকা",
+        "উত্তরা, ঢাকা"
+      ];
+      
+      const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+      document.getElementById("locationText").textContent = randomLocation;
+      document.getElementById("deliveryAddress").textContent = randomLocation;
+      
+      showNotification(`অবস্থান পরিবর্তন করা হয়েছে: ${randomLocation}`, "success");
+    }
+    
+    function loadCartFromLocalStorage() {
+      try {
+        const savedCart = localStorage.getItem('shopickCart');
+        if (savedCart) {
+          cart = JSON.parse(savedCart);
+          updateCartUI();
+        }
+      } catch (e) {
+        console.log('Could not load cart from storage');
+      }
+    }
+    
+    function saveCartToLocalStorage() {
+      localStorage.setItem('shopickCart', JSON.stringify(cart));
+    }
+    
+    function updateCartCount() {
+      const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const cartCountElement = document.getElementById('cartCount');
+      
+      if (cartCount > 0) {
+        cartCountElement.textContent = cartCount;
+        cartCountElement.classList.remove('hidden');
+      } else {
+        cartCountElement.classList.add('hidden');
+      }
+    }
+    
+    function updateCartUI() {
+      const cartItemsList = document.getElementById('cartItemsList');
+      const emptyCartMessage = document.getElementById('emptyCartMessage');
+      const itemCountElement = document.getElementById('itemCount');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      
+      // Update item count
+      const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      itemCountElement.textContent = itemCount;
+      
+      // Show/hide empty cart message
+      if (cart.length === 0) {
+        emptyCartMessage.classList.remove('hidden');
+        cartItemsList.innerHTML = '';
+        checkoutBtn.disabled = true;
+        updateOrderSummary();
+        updateCartCount();
+        return;
+      } else {
+        emptyCartMessage.classList.add('hidden');
+        checkoutBtn.disabled = false;
+      }
+      
+      // Clear and rebuild cart items list
+      cartItemsList.innerHTML = '';
+      
+      cart.forEach((item, index) => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'cart-item-animation flex border-b pb-6 last:border-0 last:pb-0';
+        itemElement.innerHTML = `
+          <div class="flex-shrink-0 mr-4">
+            <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
+          </div>
+          <div class="flex-1">
+            <div class="flex justify-between">
+              <div>
+                <h4 class="font-semibold text-gray-800">${item.name}</h4>
+                <p class="text-sm text-gray-600">${item.restaurant}</p>
+              </div>
+              <div class="text-right">
+                <div class="font-bold text-gray-800">৳ ${item.price * item.quantity}</div>
+                <div class="text-sm text-gray-500">৳ ${item.price} প্রতি</div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-4">
+              <div class="flex items-center">
+                <button onclick="updateQuantity(${item.id}, -1)" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
+                  <i class="fas fa-minus text-gray-600 text-xs"></i>
+                </button>
+                <span class="mx-3 font-bold w-8 text-center">${item.quantity}</span>
+                <button onclick="updateQuantity(${item.id}, 1)" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
+                  <i class="fas fa-plus text-gray-600 text-xs"></i>
+                </button>
+              </div>
+              <button onclick="removeFromCart(${item.id})" class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center gap-1">
+                <i class="fas fa-trash"></i>
+                অপসারণ
+              </button>
+            </div>
+          </div>
+        `;
+        
+        cartItemsList.appendChild(itemElement);
+      });
+      
+      updateOrderSummary();
+      updateCartCount();
+    }
+    
+    function updateQuantity(itemId, change) {
+      const itemIndex = cart.findIndex(item => item.id === itemId);
+      
+      if (itemIndex !== -1) {
+        cart[itemIndex].quantity += change;
+        
+        if (cart[itemIndex].quantity <= 0) {
+          cart.splice(itemIndex, 1);
+        }
+        
+        saveCartToLocalStorage();
+        updateCartUI();
+        showNotification("পরিমাণ আপডেট করা হয়েছে", "info");
+      }
+    }
+    
+    function removeFromCart(itemId) {
+      const itemIndex = cart.findIndex(item => item.id === itemId);
+      
+      if (itemIndex !== -1) {
+        const itemName = cart[itemIndex].name;
+        cart.splice(itemIndex, 1);
+        saveCartToLocalStorage();
+        updateCartUI();
+        showNotification(`${itemName} কার্ট থেকে সরানো হয়েছে`, "info");
+      }
+    }
+    
+    function clearCart() {
+      if (cart.length === 0) return;
+      
+      if (confirm("আপনি কি নিশ্চিত যে আপনি আপনার সম্পূর্ণ কার্ট খালি করতে চান?")) {
+        cart = [];
+        saveCartToLocalStorage();
+        updateCartUI();
+        showNotification("কার্ট খালি করা হয়েছে", "info");
+      }
+    }
+    
+    function updateOrderSummary() {
+      let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      
+      // Calculate charges
+      const deliveryCharge = cart.length > 0 ? 40 : 0;
+      const serviceCharge = subtotal * 0.02; // 2% service charge
+      const vat = subtotal * 0.05; // 5% VAT
+      
+      // Apply promo code discount if any
+      let discount = 0;
+      if (appliedPromoCode === 'PROMO50') {
+        discount = subtotal * 0.5; // 50% discount
+      } else if (appliedPromoCode === 'FIRST20') {
+        discount = subtotal * 0.2; // 20% discount
+      }
+      
+      const total = subtotal + deliveryCharge + serviceCharge + vat - discount;
+      
+      // Update UI
+      document.getElementById('subtotal').textContent = `৳ ${Math.round(subtotal)}`;
+      document.getElementById('deliveryCharge').textContent = `৳ ${deliveryCharge}`;
+      document.getElementById('serviceCharge').textContent = `৳ ${Math.round(serviceCharge)}`;
+      document.getElementById('vat').textContent = `৳ ${Math.round(vat)}`;
+      
+      if (discount > 0) {
+        // Add discount row if not already present
+        if (!document.getElementById('discountRow')) {
+          const discountRow = document.createElement('div');
+          discountRow.id = 'discountRow';
+          discountRow.className = 'flex justify-between text-green-600';
+          discountRow.innerHTML = `
+            <span>ছাড়</span>
+            <span id="discountAmount" class="font-semibold">৳ ${Math.round(discount)}</span>
+          `;
+          
+          const orderSummary = document.querySelector('.space-y-4.mb-6');
+          const vatRow = document.getElementById('vat').parentElement;
+          orderSummary.insertBefore(discountRow, vatRow.nextSibling);
+        } else {
+          document.getElementById('discountAmount').textContent = `৳ ${Math.round(discount)}`;
+        }
+      } else {
+        // Remove discount row if present
+        const discountRow = document.getElementById('discountRow');
+        if (discountRow) {
+          discountRow.remove();
+        }
+      }
+      
+      document.getElementById('totalAmount').textContent = `৳ ${Math.round(total)}`;
+    }
+    
+    function applyPromoCode(code = null) {
+      const promoCodeInput = document.getElementById('promoCode');
+      const promoMessage = document.getElementById('promoMessage');
+      
+      const codeToApply = code || promoCodeInput.value.trim().toUpperCase();
+      
+      if (!codeToApply) {
+        promoMessage.textContent = "দয়া করে একটি প্রোমো কোড লিখুন";
+        promoMessage.className = "text-sm text-red-600";
+        promoMessage.classList.remove('hidden');
+        return;
+      }
+      
+      const validPromoCodes = {
+        'PROMO50': { discount: 0.5, message: '৫০% ছাড় প্রয়োগ করা হয়েছে!' },
+        'FIRST20': { discount: 0.2, message: 'প্রথম অর্ডারে ২০% ছাড় প্রয়োগ করা হয়েছে!' },
+        'FREEDEL': { discount: 0, message: 'ফ্রি ডেলিভারি প্রয়োগ করা হয়েছে!', freeDelivery: true }
+      };
+      
+      if (validPromoCodes[codeToApply]) {
+        appliedPromoCode = codeToApply;
+        const promoInfo = validPromoCodes[codeToApply];
+        
+        promoMessage.textContent = promoInfo.message;
+        promoMessage.className = "text-sm text-green-600";
+        promoMessage.classList.remove('hidden');
+        
+        promoCodeInput.value = '';
+        updateOrderSummary();
+        
+        showNotification(promoInfo.message, "success");
+      } else {
+        promoMessage.textContent = "অবৈধ প্রোমো কোড";
+        promoMessage.className = "text-sm text-red-600";
+        promoMessage.classList.remove('hidden');
+        appliedPromoCode = null;
+        updateOrderSummary();
+      }
+    }
+    
+    function showPromoCodes() {
+      const promoCodes = [
+        { code: 'PROMO50', description: 'প্রথম অর্ডারে ৫০% ছাড়' },
+        { code: 'FIRST20', description: 'নতুন গ্রাহকদের জন্য ২০% ছাড়' },
+        { code: 'FREEDEL', description: '৫০০ টাকার বেশি অর্ডারে ফ্রি ডেলিভারি' }
+      ];
+      
+      let message = "উপলব্ধ প্রোমো কোড:\n";
+      promoCodes.forEach(promo => {
+        message += `${promo.code}: ${promo.description}\n`;
+      });
+      
+      alert(message);
+    }
+    
+    function proceedToCheckout() {
+      if (cart.length === 0) return;
+      
+      const total = document.getElementById('totalAmount').textContent;
+      const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      
+      showNotification(`চেকআউট প্রক্রিয়া শুরু করা হচ্ছে... ${itemCount} আইটেম, মোট: ${total}`, "info");
+      
+      // In a real app, this would redirect to checkout page
+      setTimeout(() => {
+        alert(`অর্ডার সফল!\nমোট আইটেম: ${itemCount}\nমোট মূল্য: ${total}\nডেলিভারি ঠিকানা: ${document.getElementById('deliveryAddress').textContent}\n\nআপনার অর্ডার গ্রহণ করা হয়েছে। ডেলিভারি সময়: ৩০-৪০ মিনিট।`);
+        
+        // Clear cart after successful order
+        cart = [];
+        appliedPromoCode = null;
+        saveCartToLocalStorage();
+        updateCartUI();
+      }, 1000);
+    }
+    
+    function showNotification(message, type = "info") {
+      document.querySelectorAll('.notification').forEach(notification => {
+        notification.remove();
+      });
+      
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.innerHTML = `
+        <div class="flex items-center">
+          ${getNotificationIcon(type)}
+          <span class="ml-2">${message}</span>
+        </div>
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.remove();
+        }
+      }, 3000);
+    }
+    
+    function getNotificationIcon(type) {
+      switch(type) {
+        case 'success': return '<i class="fas fa-check-circle"></i>';
+        case 'error': return '<i class="fas fa-exclamation-circle"></i>';
+        case 'warning': return '<i class="fas fa-exclamation-triangle"></i>';
+        default: return '<i class="fas fa-info-circle"></i>';
+      }
+    }
+    
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadCartFromLocalStorage();
+      
+      // Set random delivery time
+      const times = ["২০-৩০ মিনিট", "৩০-৪০ মিনিট", "৪০-৫০ মিনিট", "৫০-৬০ মিনিট"];
+      const randomTime = times[Math.floor(Math.random() * times.length)];
+      document.getElementById('deliveryTime').textContent = randomTime;
+    });
+  </script>
+</body>
+</html>

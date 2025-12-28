@@ -72,6 +72,30 @@
       70% { box-shadow: 0 0 0 10px rgba(219, 39, 119, 0); }
       100% { box-shadow: 0 0 0 0 rgba(219, 39, 119, 0); }
     }
+    .notification {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 500;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+      animation-fill-mode: forwards;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translateX(100%); }
+    }
+    .notification.success { background-color: #10b981; }
+    .notification.info { background-color: #3b82f6; }
+    .notification.warning { background-color: #f59e0b; }
+    .notification.error { background-color: #ef4444; }
   </style>
 </head>
 
@@ -90,7 +114,7 @@
       </button>
 
       <!-- Close Button -->
-      <button onclick="closeBanner()" class="absolute right-4 text-xl font-bold cursor-pointer">
+      <button onclick="closeBanner()" class="absolute right-4 text-xl font-bold cursor-pointer hover:bg-pink-700 hover:rounded-full w-8 h-8 flex items-center justify-center">
         ✕
       </button>
 
@@ -107,19 +131,20 @@
       <div class="flex items-center gap-6">
 
         <!-- Logo -->
-        <div class="flex items-center cursor-pointer">
+        <a href="index.html" class="flex items-center cursor-pointer">
           <img 
             src="img/foodshop.png" 
             alt="Shopick Logo"
             class="w-14 h-auto object-contain"
           >
-        </div>
+          <span class="ml-2 text-xl font-bold text-pink-600 hidden md:block">Shopick</span>
+        </a>
 
         <!-- Location -->
         <div class="hidden md:flex items-center gap-2 text-sm text-gray-700 bg-gray-100 px-4 py-2 rounded-lg">
           <span class="text-pink-600">📍</span>
           <span id="locationText">নতুন ঠিকানা রোড ৭১, ঢাকা, বাংলাদেশ</span>
-          <button onclick="changeLocation()" class="text-pink-600 text-xs font-semibold ml-2">পরিবর্তন</button>
+          <button onclick="changeLocation()" class="text-pink-600 text-xs font-semibold ml-2 hover:underline">পরিবর্তন</button>
         </div>
 
       </div>
@@ -127,7 +152,7 @@
       <!-- RIGHT -->
       <div class="flex items-center gap-3 flex-wrap">
 
-        <button class="border px-4 py-2 rounded-md text-sm font-semibold hover:bg-gray-100 transition">
+        <button class="border border-gray-300 px-4 py-2 rounded-md text-sm font-semibold hover:bg-gray-100 transition">
           লগইন
         </button>
 
@@ -141,12 +166,12 @@
         </div>
 
         <!-- Cart -->
-        <div id="cartIcon" class="bg-gray-100 p-2 rounded-full cursor-pointer hover:bg-gray-200 relative">
+        <a href="cart.html" id="cartIcon" class="bg-gray-100 p-2 rounded-full cursor-pointer hover:bg-gray-200 relative">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
           </svg>
           <span id="cartCount" class="absolute -top-1 -right-1 bg-pink-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
-        </div>
+        </a>
 
       </div>
     </div>
@@ -215,6 +240,7 @@
           id="searchInput"
           placeholder="রেস্টুরেন্ট বা খাবারের নাম লিখুন..." 
           class="w-full p-4 pl-12 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+          onkeypress="if(event.key === 'Enter') performSearch()"
         >
         <div class="absolute left-4 top-4 text-gray-400">
           <i class="fas fa-search"></i>
@@ -226,22 +252,22 @@
       
       <!-- FILTERS -->
       <div class="flex flex-wrap gap-3 mt-4">
-        <button class="category-btn active px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategoryAndScroll('all')">
+        <button class="category-btn active px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white transition-colors" onclick="filterCategoryAndScroll('all')">
           সব
         </button>
-        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategoryAndScroll('home-kitchen')">
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white transition-colors" onclick="filterCategoryAndScroll('home-kitchen')">
           হোম কিচেন
         </button>
-        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategoryAndScroll('restaurant')">
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white transition-colors" onclick="filterCategoryAndScroll('restaurant')">
           রেস্টুরেন্ট
         </button>
-        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategoryAndScroll('fast-food')">
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white transition-colors" onclick="filterCategoryAndScroll('fast-food')">
           ফাস্ট ফুড
         </button>
-        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategoryAndScroll('dessert')">
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white transition-colors" onclick="filterCategoryAndScroll('dessert')">
           মিষ্টি
         </button>
-        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white" onclick="filterCategoryAndScroll('biryani')">
+        <button class="category-btn px-4 py-2 bg-gray-200 rounded-lg text-sm hover:bg-pink-600 hover:text-white transition-colors" onclick="filterCategoryAndScroll('biryani')">
           বিরিয়ানি
         </button>
       </div>
@@ -253,7 +279,7 @@
         <div class="md:w-2/3 mb-6 md:mb-0">
           <h2 class="text-3xl font-bold mb-2">প্রথম অর্ডারে ৫০% ছাড়!</h2>
           <p class="text-lg mb-4">নতুন গ্রাহকদের জন্য বিশেষ অফার। আজই অর্ডার করুন এবং উপভোগ করুন অসাধারণ স্বাদ।</p>
-          <button class="bg-white text-pink-600 font-bold px-6 py-3 rounded-lg hover:bg-gray-100">
+          <button class="bg-white text-pink-600 font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">
             PROMO50 কোড ব্যবহার করুন
           </button>
         </div>
@@ -283,8 +309,8 @@
             <div class="absolute top-3 left-3">
               <span class="home-kitchen-badge text-white text-xs font-bold px-3 py-1 rounded-full">হোম কিচেন</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
-              <i class="fas fa-heart text-gray-400"></i>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
+              <i class="fas fa-heart text-gray-400 hover:text-pink-600"></i>
             </div>
           </div>
           <div class="p-5">
@@ -317,7 +343,7 @@
                 <span class="font-bold text-lg">৳ ১৩০</span>
                 <span class="text-gray-500 line-through ml-2">৳ ১৫০</span>
               </div>
-              <button onclick="addToCart('হোম কিচেন স্পেশাল', 130)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('হোম কিচেন স্পেশাল - খিচুড়ি সেট', 130, 'ফাতেমার কিচেন', 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -332,7 +358,7 @@
             <div class="absolute top-3 left-3">
               <span class="home-kitchen-badge text-white text-xs font-bold px-3 py-1 rounded-full">হোম কিচেন</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
               <i class="fas fa-heart text-pink-600"></i>
             </div>
           </div>
@@ -366,7 +392,7 @@
                 <span class="font-bold text-lg">৳ ২০০</span>
                 <span class="text-gray-500 line-through ml-2">৳ ২২০</span>
               </div>
-              <button onclick="addToCart('পোলাও সেট', 200)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('পোলাও সেট', 200, 'রুবিনার হোম ফুড', 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -381,8 +407,8 @@
             <div class="absolute top-3 left-3">
               <span class="home-kitchen-badge text-white text-xs font-bold px-3 py-1 rounded-full">হোম কিচেন</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
-              <i class="fas fa-heart text-gray-400"></i>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
+              <i class="fas fa-heart text-gray-400 hover:text-pink-600"></i>
             </div>
           </div>
           <div class="p-5">
@@ -414,7 +440,7 @@
               <div>
                 <span class="font-bold text-lg">৳ ১২০</span>
               </div>
-              <button onclick="addToCart('ভর্তা-ভাজি সেট', 120)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('ভর্তা-ভাজি সেট', 120, 'মায়ের হাতের রান্না', 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -429,8 +455,8 @@
             <div class="absolute top-3 left-3">
               <span class="home-kitchen-badge text-white text-xs font-bold px-3 py-1 rounded-full">হোম কিচেন</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
-              <i class="fas fa-heart text-gray-400"></i>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
+              <i class="fas fa-heart text-gray-400 hover:text-pink-600"></i>
             </div>
           </div>
           <div class="p-5">
@@ -463,7 +489,7 @@
                 <span class="font-bold text-lg">৳ ২৫০</span>
                 <span class="text-gray-500 line-through ml-2">৳ ২৮০</span>
               </div>
-              <button onclick="addToCart('মটন বিরিয়ানি', 250)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('মটন বিরিয়ানি', 250, 'নাসরিনের রান্নাঘর', 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -494,6 +520,7 @@
           </div>
           <div class="p-4 text-center">
             <h3 class="font-bold text-gray-800">Kacchi Bhai</h3>
+            <p class="text-gray-600 text-sm mt-1">বিরিয়ানি বিশেষজ্ঞ</p>
           </div>
         </div>
         
@@ -509,6 +536,7 @@
           </div>
           <div class="p-4 text-center">
             <h3 class="font-bold text-gray-800">Sultan's Dine</h3>
+            <p class="text-gray-600 text-sm mt-1">মুঘলাই খাবার</p>
           </div>
         </div>
         
@@ -524,6 +552,7 @@
           </div>
           <div class="p-4 text-center">
             <h3 class="font-bold text-gray-800">Pizza Burg</h3>
+            <p class="text-gray-600 text-sm mt-1">পিজ্জা ও বার্গার</p>
           </div>
         </div>
         
@@ -539,6 +568,7 @@
           </div>
           <div class="p-4 text-center">
             <h3 class="font-bold text-gray-800">KFC</h3>
+            <p class="text-gray-600 text-sm mt-1">ফ্রাইড চিকেন</p>
           </div>
         </div>
         
@@ -554,6 +584,7 @@
           </div>
           <div class="p-4 text-center">
             <h3 class="font-bold text-gray-800">Chillox</h3>
+            <p class="text-gray-600 text-sm mt-1">বার্গার ও ফাস্ট ফুড</p>
           </div>
         </div>
 
@@ -577,8 +608,8 @@
             <div class="absolute top-3 left-3">
               <span class="restaurant-badge text-white text-xs font-bold px-3 py-1 rounded-full">ফাস্ট ফুড</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
-              <i class="fas fa-heart text-gray-400"></i>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
+              <i class="fas fa-heart text-gray-400 hover:text-pink-600"></i>
             </div>
           </div>
           <div class="p-5">
@@ -603,7 +634,7 @@
                 <span class="font-bold text-lg">৳ ২২০</span>
                 <span class="text-gray-500 line-through ml-2">৳ ২৫০</span>
               </div>
-              <button onclick="addToCart('চিকেন বার্গার', 220)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('চিকেন বার্গার', 220, 'ফাস্ট ফুড স্টেশন', 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -618,7 +649,7 @@
             <div class="absolute top-3 left-3">
               <span class="restaurant-badge text-white text-xs font-bold px-3 py-1 rounded-full">ফাস্ট ফুড</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
               <i class="fas fa-heart text-pink-600"></i>
             </div>
           </div>
@@ -643,7 +674,7 @@
               <div>
                 <span class="font-bold text-lg">৳ ১৮০</span>
               </div>
-              <button onclick="addToCart('ফ্রেঞ্চ ফ্রাই কম্বো', 180)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('ফ্রেঞ্চ ফ্রাই কম্বো', 180, 'ফাস্ট ফুড স্টেশন', 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -658,8 +689,8 @@
             <div class="absolute top-3 left-3">
               <span class="restaurant-badge text-white text-xs font-bold px-3 py-1 rounded-full">ফাস্ট ফুড</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
-              <i class="fas fa-heart text-gray-400"></i>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
+              <i class="fas fa-heart text-gray-400 hover:text-pink-600"></i>
             </div>
           </div>
           <div class="p-5">
@@ -684,7 +715,7 @@
                 <span class="font-bold text-lg">৳ ৩২০</span>
                 <span class="text-gray-500 line-through ml-2">৳ ৩৫০</span>
               </div>
-              <button onclick="addToCart('চিজ পিজ্জা', 320)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('চিজ পিজ্জা', 320, 'ফাস্ট ফুড স্টেশন', 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -699,8 +730,8 @@
             <div class="absolute top-3 left-3">
               <span class="restaurant-badge text-white text-xs font-bold px-3 py-1 rounded-full">ফাস্ট ফুড</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
-              <i class="fas fa-heart text-gray-400"></i>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
+              <i class="fas fa-heart text-gray-400 hover:text-pink-600"></i>
             </div>
           </div>
           <div class="p-5">
@@ -724,7 +755,7 @@
               <div>
                 <span class="font-bold text-lg">৳ ২৮০</span>
               </div>
-              <button onclick="addToCart('ফ্রাইড চিকেন', 280)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('ফ্রাইড চিকেন', 280, 'ফাস্ট ফুড স্টেশন', 'https://images.unsplash.com/photo-1608039755401-742074f0548d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -751,7 +782,7 @@
             <div class="absolute top-3 left-3">
               <span class="dessert-badge text-white text-xs font-bold px-3 py-1 rounded-full">মিষ্টি</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
               <i class="fas fa-heart text-pink-600"></i>
             </div>
           </div>
@@ -777,7 +808,7 @@
                 <span class="font-bold text-lg">৳ ১৫০</span>
                 <span class="text-gray-500 line-through ml-2">৳ ১৭০</span>
               </div>
-              <button onclick="addToCart('রসগোল্লা', 150)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('রসগোল্লা', 150, 'মিষ্টি ঘর', 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -792,8 +823,8 @@
             <div class="absolute top-3 left-3">
               <span class="dessert-badge text-white text-xs font-bold px-3 py-1 rounded-full">মিষ্টি</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
-              <i class="fas fa-heart text-gray-400"></i>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
+              <i class="fas fa-heart text-gray-400 hover:text-pink-600"></i>
             </div>
           </div>
           <div class="p-5">
@@ -817,7 +848,7 @@
               <div>
                 <span class="font-bold text-lg">৳ ১৬০</span>
               </div>
-              <button onclick="addToCart('কালোজাম', 160)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('কালোজাম', 160, 'মিষ্টি ঘর', 'https://images.unsplash.com/photo-1587314168485-3236d6710814?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -832,7 +863,7 @@
             <div class="absolute top-3 left-3">
               <span class="dessert-badge text-white text-xs font-bold px-3 py-1 rounded-full">মিষ্টি</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
               <i class="fas fa-heart text-pink-600"></i>
             </div>
           </div>
@@ -858,7 +889,7 @@
                 <span class="font-bold text-lg">৳ ২০০</span>
                 <span class="text-gray-500 line-through ml-2">৳ ২২০</span>
               </div>
-              <button onclick="addToCart('সন্দেশ', 200)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('সন্দেশ', 200, 'মিষ্টি ঘর', 'https://images.unsplash.com/photo-1558326567-98ae2405596b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -873,8 +904,8 @@
             <div class="absolute top-3 left-3">
               <span class="dessert-badge text-white text-xs font-bold px-3 py-1 rounded-full">মিষ্টি</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
-              <i class="fas fa-heart text-gray-400"></i>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
+              <i class="fas fa-heart text-gray-400 hover:text-pink-600"></i>
             </div>
           </div>
           <div class="p-5">
@@ -898,7 +929,7 @@
               <div>
                 <span class="font-bold text-lg">৳ ১৩০</span>
               </div>
-              <button onclick="addToCart('মিষ্টি দই', 130)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('মিষ্টি দই', 130, 'মিষ্টি ঘর', 'https://images.unsplash.com/photo-1621303837174-89787a7d4729?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -925,7 +956,7 @@
             <div class="absolute top-3 left-3">
               <span class="biryani-badge text-white text-xs font-bold px-3 py-1 rounded-full">বিরিয়ানি</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
               <i class="fas fa-heart text-pink-600"></i>
             </div>
           </div>
@@ -951,7 +982,7 @@
                 <span class="font-bold text-lg">৳ ২৮০</span>
                 <span class="text-gray-500 line-through ml-2">৳ ৩২০</span>
               </div>
-              <button onclick="addToCart('মটন বিরিয়ানি', 280)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('মটন বিরিয়ানি', 280, 'বিরিয়ানি হাউস', 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -966,8 +997,8 @@
             <div class="absolute top-3 left-3">
               <span class="biryani-badge text-white text-xs font-bold px-3 py-1 rounded-full">বিরিয়ানি</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
-              <i class="fas fa-heart text-gray-400"></i>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
+              <i class="fas fa-heart text-gray-400 hover:text-pink-600"></i>
             </div>
           </div>
           <div class="p-5">
@@ -992,7 +1023,7 @@
                 <span class="font-bold text-lg">৳ ২২০</span>
                 <span class="text-gray-500 line-through ml-2">৳ ২৫০</span>
               </div>
-              <button onclick="addToCart('চিকেন বিরিয়ানি', 220)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('চিকেন বিরিয়ানি', 220, 'বিরিয়ানি হাউস', 'https://images.unsplash.com/photo-1563379091339-03246963d9d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -1007,7 +1038,7 @@
             <div class="absolute top-3 left-3">
               <span class="biryani-badge text-white text-xs font-bold px-3 py-1 rounded-full">বিরিয়ানি</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
               <i class="fas fa-heart text-pink-600"></i>
             </div>
           </div>
@@ -1032,7 +1063,7 @@
               <div>
                 <span class="font-bold text-lg">৳ ১৮০</span>
               </div>
-              <button onclick="addToCart('বেগুনি বিরিয়ানি', 180)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('বেগুনি বিরিয়ানি', 180, 'বিরিয়ানি হাউস', 'https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -1047,8 +1078,8 @@
             <div class="absolute top-3 left-3">
               <span class="biryani-badge text-white text-xs font-bold px-3 py-1 rounded-full">বিরিয়ানি</span>
             </div>
-            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow">
-              <i class="fas fa-heart text-gray-400"></i>
+            <div class="absolute top-3 right-3 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow cursor-pointer hover:bg-pink-50">
+              <i class="fas fa-heart text-gray-400 hover:text-pink-600"></i>
             </div>
           </div>
           <div class="p-5">
@@ -1073,7 +1104,7 @@
                 <span class="font-bold text-lg">৳ ৩২০</span>
                 <span class="text-gray-500 line-through ml-2">৳ ৩৫০</span>
               </div>
-              <button onclick="addToCart('হায়দ্রাবাদি বিরিয়ানি', 320)" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold">
+              <button onclick="addToCartAndRedirect('হায়দ্রাবাদি বিরিয়ানি', 320, 'বিরিয়ানি হাউস', 'https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 text-sm font-semibold transition-colors">
                 অর্ডার করুন
               </button>
             </div>
@@ -1131,10 +1162,10 @@
           <h2 class="text-3xl font-bold mb-2">আপনার রেস্টুরেন্ট বা হোম কিচেন যুক্ত করুন</h2>
           <p class="text-lg mb-4">আপনার ব্যবসা অনলাইনে নিয়ে আসুন এবং লক্ষাধিক গ্রাহকের কাছে পৌঁছান।</p>
           <div class="flex flex-wrap gap-4">
-            <button class="bg-white text-green-600 font-bold px-6 py-3 rounded-lg hover:bg-gray-100">
+            <button class="bg-white text-green-600 font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">
               রেস্টুরেন্ট পার্টনার হোন
             </button>
-            <button class="bg-transparent border-2 border-white font-bold px-6 py-3 rounded-lg hover:bg-white hover:text-green-600">
+            <button class="bg-transparent border-2 border-white font-bold px-6 py-3 rounded-lg hover:bg-white hover:text-green-600 transition-colors">
               হোম কিচেন রেজিস্ট্রেশন
             </button>
           </div>
@@ -1160,20 +1191,20 @@
               alt="Shopick Logo"
               class="w-12 h-auto object-contain mr-4"
             >
-          
+            <span class="text-2xl font-bold text-pink-600">Shopick</span>
           </div>
           <p class="text-gray-600 mb-6">বাংলাদেশের সবচেয়ে নির্ভরযোগ্য ফুড ডেলিভারি সার্ভিস। রেস্টুরেন্ট এবং হোম কিচেন থেকে সরাসরি আপনার দরজায় টাটকা খাবার পৌঁছে দেই।</p>
           <div class="flex gap-4">
-            <a href="#" class="bg-gray-100 text-gray-700 p-3 rounded-full hover:bg-pink-100 hover:text-pink-600">
+            <a href="#" class="bg-gray-100 text-gray-700 p-3 rounded-full hover:bg-pink-100 hover:text-pink-600 transition-colors">
               <i class="fab fa-facebook-f"></i>
             </a>
-            <a href="#" class="bg-gray-100 text-gray-700 p-3 rounded-full hover:bg-pink-100 hover:text-pink-600">
+            <a href="#" class="bg-gray-100 text-gray-700 p-3 rounded-full hover:bg-pink-100 hover:text-pink-600 transition-colors">
               <i class="fab fa-instagram"></i>
             </a>
-            <a href="#" class="bg-gray-100 text-gray-700 p-3 rounded-full hover:bg-pink-100 hover:text-pink-600">
+            <a href="#" class="bg-gray-100 text-gray-700 p-3 rounded-full hover:bg-pink-100 hover:text-pink-600 transition-colors">
               <i class="fab fa-twitter"></i>
             </a>
-            <a href="#" class="bg-gray-100 text-gray-700 p-3 rounded-full hover:bg-pink-100 hover:text-pink-600">
+            <a href="#" class="bg-gray-100 text-gray-700 p-3 rounded-full hover:bg-pink-100 hover:text-pink-600 transition-colors">
               <i class="fab fa-linkedin-in"></i>
             </a>
           </div>
@@ -1182,36 +1213,36 @@
         <div>
           <h3 class="text-lg font-bold text-gray-900 mb-6">গ্রাহকদের জন্য</h3>
           <ul class="space-y-3 text-gray-600">
-            <li><a href="#" class="hover:text-pink-600 hover:font-medium">সাহায্য কেন্দ্র</a></li>
-            <li><a href="#" class="hover:text-pink-600 hover:font-medium">আমাদের সাথে যোগাযোগ</a></li>
-            <li><a href="#" class="hover:text-pink-600 hover:font-medium">অফারগুলো</a></li>
-            <li><a href="#" class="hover:text-pink-600 hover:font-medium">প্রাইভেসি পলিসি</a></li>
-            <li><a href="#" class="hover:text-pink-600 hover:font-medium">শর্তাবলী</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">সাহায্য কেন্দ্র</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">আমাদের সাথে যোগাযোগ</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">অফারগুলো</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">প্রাইভেসি পলিসি</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">শর্তাবলী</a></li>
           </ul>
         </div>
         
         <div>
           <h3 class="text-lg font-bold text-gray-900 mb-6">ভেন্ডরদের জন্য</h3>
           <ul class="space-y-3 text-gray-600">
-            <li><a href="#" class="hover:text-pink-600 hover:font-medium">রেস্টুরেন্ট যুক্ত করুন</a></li>
-            <li><a href="#" class="hover:text-pink-600 hover:font-medium">হোম কিচেন রেজিস্ট্রেশন</a></li>
-            <li><a href="#" class="hover:text-pink-600 hover:font-medium">ভেন্ডর ড্যাশবোর্ড</a></li>
-            <li><a href="#" class="hover:text-pink-600 hover:font-medium">কমিশন বিস্তারিত</a></li>
-            <li><a href="#" class="hover:text-pink-600 hover:font-medium">সুরক্ষা নির্দেশিকা</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">রেস্টুরেন্ট যুক্ত করুন</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">হোম কিচেন রেজিস্ট্রেশন</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">ভেন্ডর ড্যাশবোর্ড</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">কমিশন বিস্তারিত</a></li>
+            <li><a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">সুরক্ষা নির্দেশিকা</a></li>
           </ul>
         </div>
         
         <div>
           <h3 class="text-lg font-bold text-gray-900 mb-6">ডাউনলোড করুন</h3>
           <div class="space-y-4">
-            <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-lg flex items-center justify-center transition">
+            <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-lg flex items-center justify-center transition-colors">
               <i class="fab fa-google-play mr-3 text-green-600"></i>
               <div class="text-left">
                 <div class="text-xs text-gray-500">Get it on</div>
                 <div class="font-bold">Google Play</div>
               </div>
             </button>
-            <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-lg flex items-center justify-center transition">
+            <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 rounded-lg flex items-center justify-center transition-colors">
               <i class="fab fa-apple mr-3 text-gray-700"></i>
               <div class="text-left">
                 <div class="text-xs text-gray-500">Download on the</div>
@@ -1229,10 +1260,10 @@
             © 2023 Shopick. All rights reserved.
           </div>
           <div class="flex flex-wrap gap-6 text-sm text-gray-500">
-            <a href="#" class="hover:text-pink-600 hover:font-medium">প্রাইভেসি পলিসি</a>
-            <a href="#" class="hover:text-pink-600 hover:font-medium">শর্তাবলী</a>
-            <a href="#" class="hover:text-pink-600 hover:font-medium">কুকি পলিসি</a>
-            <a href="#" class="hover:text-pink-600 hover:font-medium">অভিযোগ নিষ্পত্তি</a>
+            <a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">প্রাইভেসি পলিসি</a>
+            <a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">শর্তাবলী</a>
+            <a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">কুকি পলিসি</a>
+            <a href="#" class="hover:text-pink-600 hover:font-medium transition-colors">অভিযোগ নিষ্পত্তি</a>
           </div>
         </div>
       </div>
@@ -1240,76 +1271,14 @@
     </div>
   </footer>
 
-  <!-- CART MODAL -->
-  <div id="cartModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-end">
-    <div class="bg-white w-full md:w-1/3 h-full overflow-y-auto">
-      <div class="p-6">
-        <div class="flex justify-between items-center mb-6">
-          <h2 class="text-2xl font-bold">আপনার কার্ট</h2>
-          <button onclick="closeCart()" class="text-2xl text-gray-500 hover:text-gray-700">✕</button>
-        </div>
-        
-        <div id="cartItems" class="mb-8">
-          <!-- Cart items will be added here dynamically -->
-          <div id="emptyCart" class="text-center py-10">
-            <i class="fas fa-shopping-cart text-5xl text-gray-300 mb-4"></i>
-            <p class="text-gray-500">আপনার কার্ট খালি</p>
-            <p class="text-gray-400 text-sm mt-2">কিছু আইটেম যোগ করুন</p>
-          </div>
-        </div>
-        
-        <div class="border-t pt-6">
-          <div class="flex justify-between mb-2">
-            <span class="text-gray-600">সাবটোটাল</span>
-            <span id="subtotal" class="font-bold">৳ ০</span>
-          </div>
-          <div class="flex justify-between mb-2">
-            <span class="text-gray-600">ডেলিভারি চার্জ</span>
-            <span id="deliveryCharge" class="font-bold">৳ ০</span>
-          </div>
-          <div class="flex justify-between mb-2">
-            <span class="text-gray-600">ট্যাক্স</span>
-            <span id="tax" class="font-bold">৳ ০</span>
-          </div>
-          <div class="flex justify-between text-lg font-bold mt-4 pt-4 border-t">
-            <span>মোট</span>
-            <span id="totalAmount">৳ ০</span>
-          </div>
-          
-          <button id="checkoutBtn" onclick="checkout()" class="w-full bg-pink-600 text-white py-4 rounded-lg font-bold mt-8 hover:bg-pink-700 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-            চেকআউট করুন
-          </button>
-          
-          <div class="mt-6">
-            <p class="text-gray-600 text-sm mb-4">পেমেন্ট অপশন</p>
-            <div class="grid grid-cols-2 gap-3">
-              <button class="border border-gray-300 py-3 rounded-lg hover:bg-gray-50">
-                <i class="fas fa-money-bill-wave mr-2"></i> Cash on Delivery
-              </button>
-              <button class="border border-gray-300 py-3 rounded-lg hover:bg-gray-50">
-                <i class="fas fa-mobile-alt mr-2"></i> bKash
-              </button>
-              <button class="border border-gray-300 py-3 rounded-lg hover:bg-gray-50">
-                <i class="fas fa-wallet mr-2"></i> Nagad
-              </button>
-              <button class="border border-gray-300 py-3 rounded-lg hover:bg-gray-50">
-                <i class="fas fa-credit-card mr-2"></i> Card
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- JS -->
   <script>
     // Cart functionality
     let cart = [];
-    let cartCount = 0;
     
     function closeBanner() {
       document.getElementById("topBanner").style.display = "none";
+      showNotification("ব্যানার বন্ধ করা হয়েছে", "info");
     }
     
     function changeLocation() {
@@ -1324,32 +1293,25 @@
       const randomLocation = locations[Math.floor(Math.random() * locations.length)];
       document.getElementById("locationText").textContent = randomLocation;
       
-      // Show notification instead of alert
-      showNotification(`অবস্থান পরিবর্তন করা হয়েছে: ${randomLocation}`);
+      showNotification(`অবস্থান পরিবর্তন করা হয়েছে: ${randomLocation}`, "success");
     }
     
     function performSearch() {
       const searchTerm = document.getElementById("searchInput").value;
       if (searchTerm.trim()) {
-        // Show notification instead of alert
-        showNotification(`"${searchTerm}" এর জন্য সার্চ করা হচ্ছে...`);
-        // In a real app, this would trigger a search
+        showNotification(`"${searchTerm}" এর জন্য সার্চ করা হচ্ছে...`, "info");
       } else {
-        showNotification("দয়া করে সার্চ টার্ম লিখুন");
+        showNotification("দয়া করে সার্চ টার্ম লিখুন", "warning");
       }
     }
     
-    // Combined function for filter and smooth scroll
     function filterCategoryAndScroll(category) {
-      // Remove active class from all buttons
       document.querySelectorAll('.category-btn').forEach(btn => {
         btn.classList.remove('active');
       });
       
-      // Add active class to clicked button
       event.target.classList.add('active');
       
-      // Scroll to appropriate section
       const sectionMap = {
         'all': 'todays-special',
         'home-kitchen': 'todays-special',
@@ -1362,30 +1324,24 @@
       const sectionId = sectionMap[category];
       if (sectionId) {
         smoothScrollToSection(sectionId);
+        showNotification(`${category} ক্যাটাগরি নির্বাচন করা হয়েছে`, "info");
       }
     }
     
-    // Smooth scroll function
     function smoothScrollToSection(sectionId) {
       const section = document.getElementById(sectionId);
       if (section) {
-        // Calculate offset for navbar
         const navbarHeight = document.querySelector('header').offsetHeight;
-        
-        // Get section position
         const sectionPosition = section.getBoundingClientRect().top;
         const offsetPosition = sectionPosition + window.pageYOffset - navbarHeight - 20;
         
-        // Smooth scroll
         window.scrollTo({
           top: offsetPosition,
           behavior: 'smooth'
         });
         
-        // Highlight the section with animation
         section.classList.add('section-highlight');
         
-        // Remove highlight class after animation completes
         setTimeout(() => {
           section.classList.remove('section-highlight');
         }, 1500);
@@ -1393,167 +1349,107 @@
     }
     
     function viewRestaurant(restaurantName) {
-      // Show notification instead of alert
-      showNotification(`${restaurantName} এর মেনু দেখানো হবে।`);
-      // In a real app, this would navigate to restaurant page
+      showNotification(`${restaurantName} এর মেনু দেখানো হবে।`, "info");
     }
     
-    function addToCart(itemName, price) {
-      // Add item to cart
-      cart.push({
-        id: Date.now(),
-        name: itemName,
-        price: price,
-        quantity: 1
-      });
+    function addToCartAndRedirect(itemName, price, restaurant, imageUrl) {
+      // Check if item already exists in cart
+      const existingItemIndex = cart.findIndex(item => item.name === itemName && item.restaurant === restaurant);
       
-      cartCount++;
+      if (existingItemIndex !== -1) {
+        cart[existingItemIndex].quantity += 1;
+      } else {
+        cart.push({
+          id: Date.now(),
+          name: itemName,
+          price: price,
+          restaurant: restaurant,
+          image: imageUrl,
+          quantity: 1
+        });
+      }
       
-      // Update cart UI
-      updateCartUI();
+      // Save cart to localStorage
+      saveCartToLocalStorage();
+      
+      // Update cart count in header
+      updateCartCount();
       
       // Show notification
-      showNotification(`${itemName} কার্টে যোগ করা হয়েছে`);
+      showNotification(`${itemName} কার্টে যোগ করা হয়েছে`, "success");
+      
+      // Redirect to cart page after 1 second
+      setTimeout(() => {
+        window.location.href = "cart.html";
+      }, 1000);
     }
     
-    function updateCartUI() {
+    function saveCartToLocalStorage() {
+      localStorage.setItem('shopickCart', JSON.stringify(cart));
+    }
+    
+    function loadCartFromLocalStorage() {
+      try {
+        const savedCart = localStorage.getItem('shopickCart');
+        if (savedCart) {
+          cart = JSON.parse(savedCart);
+          updateCartCount();
+        }
+      } catch (e) {
+        console.log('Could not load cart from storage');
+      }
+    }
+    
+    function updateCartCount() {
+      const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
       const cartCountElement = document.getElementById('cartCount');
-      const emptyCartElement = document.getElementById('emptyCart');
-      const cartItemsElement = document.getElementById('cartItems');
-      const checkoutBtn = document.getElementById('checkoutBtn');
       
-      // Update cart count
       if (cartCount > 0) {
         cartCountElement.textContent = cartCount;
         cartCountElement.classList.remove('hidden');
-        emptyCartElement.style.display = 'none';
-        checkoutBtn.disabled = false;
       } else {
         cartCountElement.classList.add('hidden');
-        emptyCartElement.style.display = 'block';
-        checkoutBtn.disabled = true;
       }
-      
-      // Clear cart items display
-      cartItemsElement.innerHTML = '';
-      
-      // Add items to cart display
-      let subtotal = 0;
-      
-      cart.forEach(item => {
-        const itemElement = document.createElement('div');
-        itemElement.className = 'flex justify-between items-center border-b py-4';
-        itemElement.innerHTML = `
-          <div>
-            <h4 class="font-semibold">${item.name}</h4>
-            <div class="flex items-center mt-2">
-              <button onclick="updateQuantity(${item.id}, -1)" class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">-</button>
-              <span class="mx-3 font-bold">${item.quantity}</span>
-              <button onclick="updateQuantity(${item.id}, 1)" class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">+</button>
-              <button onclick="removeFromCart(${item.id})" class="ml-4 text-red-600 text-sm">অপসারণ</button>
-            </div>
-          </div>
-          <div class="text-right">
-            <div class="font-bold">৳ ${item.price * item.quantity}</div>
-            <div class="text-sm text-gray-500">৳ ${item.price} প্রতি</div>
-          </div>
-        `;
-        
-        cartItemsElement.appendChild(itemElement);
-        subtotal += item.price * item.quantity;
+    }
+    
+    function showNotification(message, type = "info") {
+      document.querySelectorAll('.notification').forEach(notification => {
+        notification.remove();
       });
       
-      // Calculate charges
-      const deliveryCharge = cart.length > 0 ? 40 : 0;
-      const tax = subtotal * 0.05; // 5% tax
-      const total = subtotal + deliveryCharge + tax;
-      
-      // Update totals
-      document.getElementById('subtotal').textContent = `৳ ${subtotal}`;
-      document.getElementById('deliveryCharge').textContent = `৳ ${deliveryCharge}`;
-      document.getElementById('tax').textContent = `৳ ${Math.round(tax)}`;
-      document.getElementById('totalAmount').textContent = `৳ ${Math.round(total)}`;
-    }
-    
-    function updateQuantity(itemId, change) {
-      const itemIndex = cart.findIndex(item => item.id === itemId);
-      
-      if (itemIndex !== -1) {
-        cart[itemIndex].quantity += change;
-        
-        if (cart[itemIndex].quantity <= 0) {
-          cart.splice(itemIndex, 1);
-          cartCount--;
-        }
-        
-        updateCartUI();
-      }
-    }
-    
-    function removeFromCart(itemId) {
-      const itemIndex = cart.findIndex(item => item.id === itemId);
-      
-      if (itemIndex !== -1) {
-        cart.splice(itemIndex, 1);
-        cartCount--;
-        updateCartUI();
-        showNotification('আইটেম কার্ট থেকে সরানো হয়েছে');
-      }
-    }
-    
-    function openCart() {
-      document.getElementById('cartModal').classList.remove('hidden');
-    }
-    
-    function closeCart() {
-      document.getElementById('cartModal').classList.add('hidden');
-    }
-    
-    function checkout() {
-      if (cart.length === 0) return;
-      
-      const total = document.getElementById('totalAmount').textContent;
-      // Show notification instead of alert
-      showNotification(`অর্ডার কনফার্ম করা হচ্ছে। মোট মূল্য: ${total}`);
-      closeCart();
-      
-      // Reset cart
-      cart = [];
-      cartCount = 0;
-      updateCartUI();
-    }
-    
-    function showNotification(message) {
-      // Create notification element
       const notification = document.createElement('div');
-      notification.className = 'fixed top-24 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-transform duration-300';
-      notification.textContent = message;
-      notification.style.transform = 'translateX(120%)';
+      notification.className = `notification ${type}`;
+      notification.innerHTML = `
+        <div class="flex items-center">
+          ${getNotificationIcon(type)}
+          <span class="ml-2">${message}</span>
+        </div>
+      `;
       
       document.body.appendChild(notification);
       
-      // Animate in
       setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-      }, 10);
-      
-      // Animate out after 3 seconds
-      setTimeout(() => {
-        notification.style.transform = 'translateX(120%)';
-        setTimeout(() => {
-          document.body.removeChild(notification);
-        }, 300);
+        if (notification.parentNode) {
+          notification.remove();
+        }
       }, 3000);
     }
     
-    // Initialize event listeners
-    document.getElementById('cartIcon').addEventListener('click', openCart);
+    function getNotificationIcon(type) {
+      switch(type) {
+        case 'success': return '<i class="fas fa-check-circle"></i>';
+        case 'error': return '<i class="fas fa-exclamation-circle"></i>';
+        case 'warning': return '<i class="fas fa-exclamation-triangle"></i>';
+        default: return '<i class="fas fa-info-circle"></i>';
+      }
+    }
     
-    // Add sample data for demo
+    // Initialize cart on page load
     window.addEventListener('DOMContentLoaded', () => {
-      // Sample cart notification
+      loadCartFromLocalStorage();
+      
       setTimeout(() => {
-        showNotification('স্বাগতম! প্রথম অর্ডারে ৫০% ছাড় পেতে PROMO50 কোড ব্যবহার করুন');
+        showNotification('স্বাগতম! প্রথম অর্ডারে ৫০% ছাড় পেতে PROMO50 কোড ব্যবহার করুন', 'info');
       }, 1000);
     });
   </script>
